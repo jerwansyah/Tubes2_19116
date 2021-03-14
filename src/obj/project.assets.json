@@ -1,31 +1,140 @@
 {
   "version": 3,
   "targets": {
-    "net5.0-windows7.0": {}
+    "net5.0-windows7.0": {
+      "AutomaticGraphLayout/1.1.11": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/AutomaticGraphLayout.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutomaticGraphLayout.dll": {}
+        }
+      },
+      "AutomaticGraphLayout.Drawing/1.1.11": {
+        "type": "package",
+        "dependencies": {
+          "AutomaticGraphLayout": "1.1.11"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutomaticGraphLayout.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutomaticGraphLayout.Drawing.dll": {}
+        }
+      },
+      "AutomaticGraphLayout.GraphViewerGDI/1.1.11": {
+        "type": "package",
+        "dependencies": {
+          "AutomaticGraphLayout.Drawing": "1.1.11"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Msagl.GraphViewerGdi.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Msagl.GraphViewerGdi.dll": {}
+        }
+      },
+      "AutomaticGraphLayout.WpfGraphControl/1.1.11": {
+        "type": "package",
+        "dependencies": {
+          "AutomaticGraphLayout.Drawing": "1.1.11"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Msagl.WpfGraphControl.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Msagl.WpfGraphControl.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "AutomaticGraphLayout/1.1.11": {
+      "sha512": "eCedsyBYhxpOFXCnX3+RPsZ0oIZ3pvKzfg2XDXvYGi6zcJmP4LdowiQLBpy4dwvQO0Sl0FEJ8EkfzwmIuLdzZA==",
+      "type": "package",
+      "path": "automaticgraphlayout/1.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automaticgraphlayout.1.1.11.nupkg.sha512",
+        "automaticgraphlayout.nuspec",
+        "lib/netstandard2.0/AutomaticGraphLayout.dll"
+      ]
+    },
+    "AutomaticGraphLayout.Drawing/1.1.11": {
+      "sha512": "A2eq3GvW4pg+1QKfcy/JQZN2S4qdxli0Vqcinyq7fUIM597NRcp2vufNbo5m9tJtQN7qW+OmKcfnsesrdt3j9Q==",
+      "type": "package",
+      "path": "automaticgraphlayout.drawing/1.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automaticgraphlayout.drawing.1.1.11.nupkg.sha512",
+        "automaticgraphlayout.drawing.nuspec",
+        "lib/netstandard2.0/AutomaticGraphLayout.Drawing.dll"
+      ]
+    },
+    "AutomaticGraphLayout.GraphViewerGDI/1.1.11": {
+      "sha512": "6Mz5RfqpRh5yiGVivkTLEkHb3JTNrPiqjvLZoou+3eCof5JO/B64OK5gkZH8D7Vhu/VFF5ikvxD4mvT6xLzY1A==",
+      "type": "package",
+      "path": "automaticgraphlayout.graphviewergdi/1.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automaticgraphlayout.graphviewergdi.1.1.11.nupkg.sha512",
+        "automaticgraphlayout.graphviewergdi.nuspec",
+        "lib/net472/Microsoft.Msagl.GraphViewerGdi.dll",
+        "lib/net61/Microsoft.Msagl.GraphViewerGdi.dll",
+        "lib/netcoreapp3.1/Microsoft.Msagl.GraphViewerGdi.dll"
+      ]
+    },
+    "AutomaticGraphLayout.WpfGraphControl/1.1.11": {
+      "sha512": "7DzXThduf7atZqtPQvJQhMgwSJjgjSViLAu+YFsme7GEpTxgGZGCtK0KAlWcBrEycQxwNJDuUvOGKVkik3WpLA==",
+      "type": "package",
+      "path": "automaticgraphlayout.wpfgraphcontrol/1.1.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automaticgraphlayout.wpfgraphcontrol.1.1.11.nupkg.sha512",
+        "automaticgraphlayout.wpfgraphcontrol.nuspec",
+        "lib/net461/Microsoft.Msagl.WpfGraphControl.dll",
+        "lib/net472/Microsoft.Msagl.WpfGraphControl.dll",
+        "lib/netcoreapp3.1/Microsoft.Msagl.WpfGraphControl.dll"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0-windows7.0": []
+    "net5.0-windows7.0": [
+      "AutomaticGraphLayout >= 1.1.11",
+      "AutomaticGraphLayout.Drawing >= 1.1.11",
+      "AutomaticGraphLayout.GraphViewerGDI >= 1.1.11",
+      "AutomaticGraphLayout.WpfGraphControl >= 1.1.11"
+    ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\c\\tubes\\Tubes2_19116\\src\\src.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\stima_tubes2\\src\\src.csproj",
       "projectName": "src",
-      "projectPath": "C:\\Users\\user\\Desktop\\c\\tubes\\Tubes2_19116\\src\\src.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\c\\tubes\\Tubes2_19116\\src\\obj\\",
+      "projectPath": "C:\\Users\\USER\\Desktop\\stima_tubes2\\src\\src.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\stima_tubes2\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0-windows"
+        "net5.0-windows7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -43,6 +152,24 @@
     "frameworks": {
       "net5.0-windows7.0": {
         "targetAlias": "net5.0-windows",
+        "dependencies": {
+          "AutomaticGraphLayout": {
+            "target": "Package",
+            "version": "[1.1.11, )"
+          },
+          "AutomaticGraphLayout.Drawing": {
+            "target": "Package",
+            "version": "[1.1.11, )"
+          },
+          "AutomaticGraphLayout.GraphViewerGDI": {
+            "target": "Package",
+            "version": "[1.1.11, )"
+          },
+          "AutomaticGraphLayout.WpfGraphControl": {
+            "target": "Package",
+            "version": "[1.1.11, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
