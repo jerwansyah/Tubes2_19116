@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BaconPancakes
+
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,6 +23,8 @@ namespace BaconPancakes
     {
         public MainWindow()
         {
+            FileParser fileParser = new FileParser();
+            fileParser.Parse();
             InitializeComponent();
         }
     }

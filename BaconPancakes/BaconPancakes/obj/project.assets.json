@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\BaconPancakes\\BaconPancakes\\BaconPancakes.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\stima_tubes2\\BaconPancakes\\BaconPancakes\\BaconPancakes.csproj",
       "projectName": "BaconPancakes",
-      "projectPath": "C:\\Users\\user\\Desktop\\BaconPancakes\\BaconPancakes\\BaconPancakes.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\BaconPancakes\\BaconPancakes\\obj\\",
+      "projectPath": "C:\\Users\\USER\\Desktop\\stima_tubes2\\BaconPancakes\\BaconPancakes\\BaconPancakes.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\stima_tubes2\\BaconPancakes\\BaconPancakes\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

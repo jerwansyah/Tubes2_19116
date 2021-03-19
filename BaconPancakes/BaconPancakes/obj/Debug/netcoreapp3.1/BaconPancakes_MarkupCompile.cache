@@ -1,5 +1,5 @@
 ﻿BaconPancakes
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\USER\Desktop\stima_tubes2\BaconPancakes\BaconPancakes\App.xaml
 11407045341
 
-7660868625
+4-2114347821
 192-1533232326
 MainWindow.xaml;
 
-False
+True
 
