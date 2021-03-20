@@ -5,7 +5,7 @@
 - [x] Parser (Axel)
     - [ ] Nama node sesuai input
 - [ ] Searching
-    - [ ] BFS (Axel)
+    - [?] BFS (Axel)
     - [ ] DFS (Acin)
         - [ ] DLS
         - [ ] IDS
