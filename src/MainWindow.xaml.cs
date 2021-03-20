@@ -12,48 +12,117 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using Microsoft.Msagl;
+using Microsoft.Msagl.Splines;
 // using BaconPancakes.lib;
 
 namespace BaconPancakes
 {
     public partial class MainWindow : Window
     {
+        // Atribut
+        private UndirectedGraph graph;
+
+        // Metode
+        public System.Windows.Forms.ComboBox.ObjectCollection Items { get; }
+
         public MainWindow()
         {
             InitializeComponent();
+            CenterWindowOnScreen();
         }
 
-        public void Shazam()
+        private void CenterWindowOnScreen()
         {
-            //create a form 
-            System.Windows.Forms.Form form = new System.Windows.Forms.Form();
-            //create a viewer object 
-            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-            //create a graph object 
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
-            //create the graph content 
-            graph.AddEdge("A", "B");
-            graph.AddEdge("B", "C");
-            graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-            graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
-            graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
-            Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
-            c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
-            c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
-            //bind the graph to the viewer 
-            viewer.Graph = graph;
-            //associate the viewer with the form 
-            form.SuspendLayout();
-            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            form.Controls.Add(viewer);
-            form.ResumeLayout();
-            //show the form 
-            form.ShowDialog();
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2);
+            this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        //    graph.AddEdge("A", "B");
+        //    graph.AddEdge("B", "C");
+        //    graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+        //    graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
+        //    graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
+        //    Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
+        //    c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
+        //    c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            Shazam();
+            Microsoft.Msagl.Drawing.Graph g = new Microsoft.Msagl.Drawing.Graph("graph");
+            g.AddEdge("D", "A");
+            g.AddEdge("C", "B");
+            g.AddEdge("F", "C");
+            g.AddEdge("B", "D");
+            g.AddEdge("D", "A");
+            this.gViewer.Graph = g;
+
+
+            if (DFS.IsChecked == true)
+            {
+                string nl = "\r\n";
+                Result.Text = "to yeet" + nl;
+                Result.Text += "or not to yeet";
+            }
+            else
+            {
+                Result.Text = "";
+            }
+        }
+
+        private void Browse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"",
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "txt",
+                Filter = "txt files (*.txt)|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = openFileDialog1.FileName;
+                File_Name.Content = openFileDialog1.SafeFileName;
+                FileParser fileParse = new FileParser();
+
+                try
+                {
+                    graph = fileParse.ListToUndirectedGraph(fileParse.FilenameToList(fileName));
+                }
+                catch (FileFormatException err)
+                {
+                    Console.WriteLine(err.Message);
+                }
+            }
+
+            if (graph != null)
+            {
+                foreach (Node n in graph.GetNodes())
+                {
+                    Node_Alpha.Items.Add(n.getNode1());
+                    Node_Omega.Items.Add(n.getNode1());
+                }
+                return;
+            }
+            else
+            {
+                File_Name.Content = "File not read!";
+            }
         }
     }
 }

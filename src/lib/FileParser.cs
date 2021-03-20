@@ -8,7 +8,7 @@ namespace BaconPancakes
     {
         public FileFormatException(string message) : base(message)
         {
-            // nop
+            //NOP
         }
     }
     public class FileParser

@@ -3,12 +3,15 @@
     - [x] Node
     - [x] Struktur data graf
 - [x] Parser (Axel)
+    - [ ] Nama node sesuai input
 - [ ] Searching
     - [ ] BFS (Axel)
     - [ ] DFS (Acin)
         - [ ] DLS
         - [ ] IDS
-- [ ] GUI AKA UI/UX (Jejen)
+- [ ] GUI, UI/UX (Jejen)
+    - [ ] Logo
+    - [ ] ico
 - [ ] API buat convert graf ke msagl (Jejen)
 - [ ] [Laporan]((https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#))
 - [ ] Video

@@ -37,6 +37,7 @@ namespace BaconPancakes
         {
             return !node.Equals(null) && node_targets.Contains(node2);
         }
+
         public void AddAdjacency(char node2)
         {
             if (!node_targets.Contains(node2))
@@ -53,6 +54,7 @@ namespace BaconPancakes
             }
         }
     }
+
     public class UndirectedGraph
     {
         private List<Node> nodes;
@@ -78,6 +80,7 @@ namespace BaconPancakes
             }
             return null;
         }
+
         public bool IsNodeExist(char node1)
         {
             return getNodeOf(node1) != null;
