@@ -87,6 +87,7 @@ namespace BaconPancakes
 
             visited.Add(start);
             bool backtrack = false;
+            bool lastAdded = false;
             stack.Push(start);
             Node currNode = nodeStart;
             while (currNode.GetNode1() != end) {
@@ -131,9 +132,15 @@ namespace BaconPancakes
                         currNode = graph_in.GetNodeOf(stack.Peek());
                     }
                 }
+                if (path[path.Count-1] == end) {
+                    lastAdded = true;
+                    break;
+                }
             }
             // Sebenernya buat nambah end aja di path
-            path.Add(currNode.GetNode1());
+            if (!lastAdded) {
+                path.Add(currNode.GetNode1());
+            }
             return path;
         }
 
