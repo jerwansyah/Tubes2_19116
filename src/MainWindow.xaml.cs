@@ -31,6 +31,8 @@ namespace BaconPancakes
 
         /*** Metode ***/
         public System.Windows.Forms.ComboBox.ObjectCollection Items { get; }
+        string nl = "\r\n";
+        string tab = "    ";
 
         public MainWindow()
         {
@@ -74,13 +76,18 @@ namespace BaconPancakes
             // Menambahkan sisi ke graf
             foreach (Node node in UG.GetNodes())
             {
-                foreach (string adjacentNode in node.GetAdjacentNodes())
+                if (node.GetAdjacentNodes().Count != 0)
                 {
+                    foreach (string adjacentNode in node.GetAdjacentNodes())
                     {
                         var Edge = G.AddEdge(node.GetNode1(), adjacentNode);
                         Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
                         Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
                     }
+                }
+                else
+                {
+                    G.AddNode(node.GetNode1());
                 }
             }
 
@@ -100,58 +107,125 @@ namespace BaconPancakes
             }
             this.gViewer.Graph = G;
 
-            // Mencetak hasil
-            string nl = "\r\n";
-            Result.Text = "Akun yang dipilih adalah " + Src + " dan " + Dest + nl;
-
-            var Instance = new Search();
-            List<String> Res;
-
-            if (DFS_RB.IsChecked == true)
-            {
-                try
-                {
-                    Res = Instance.DFS(UG, Src, Dest);
-                    foreach (string pancake in Res)
-                    {
-                        Result.Text += pancake + " ";
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("DFS broke");
-                    Result.Text = "Tidak ada jalur koneksi yang tersedia" + nl;
-                    return;
-                }
-
-                ColoringGraph(Res, G);
-            }
-            else
-            {
-                try
-                {
-                    Res = Instance.BFS(UG, Src, Dest);
-                    foreach (string pancake in Res)
-                    {
-                        Result.Text += pancake + " ";
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("BFS broke");
-                    Result.Text += "Tidak ada jalur koneksi yang tersedia" + nl;
-                    return;
-                }
-
-                ColoringGraph(Res, G);
-            }
-
             // Mewarnai simpul awal dan akhir
             MSAGLNode Src_Copy = G.FindNode(Src);
             MSAGLNode Dest_Copy = G.FindNode(Dest);
 
             Src_Copy.Attr.FillColor = Color.Goldenrod;
             Dest_Copy.Attr.FillColor = Color.Goldenrod;
+
+            // Mencetak hasil
+            var Instance = new Search();
+            List<String> Res;
+
+            Result.Text = "Selected account(s) ";
+            if (Src != Dest)
+            {
+                Result.Text += Src + " and " + Dest + "." + nl;
+            }
+            else
+            {
+                Result.Text += Src + "." + nl;
+            }
+
+            if (DFS_RB.IsChecked == true)
+            {
+                try
+                {
+                    Res = Instance.DFS(UG, Src, Dest);
+                    PrintingPath(Res);
+                    ColoringGraph(Res, G);
+                }
+                catch
+                {
+                    Console.WriteLine("DFS broke");
+                    Result.Text += tab + "No available connection." + nl;
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    Res = Instance.BFS(UG, Src, Dest);
+                    PrintingPath(Res);
+                    ColoringGraph(Res, G);
+                }
+                catch
+                {
+                    Console.WriteLine("BFS broke");
+                    Result.Text += tab + "No available connection." + nl;
+                }
+            }
+
+            // Mencetak hasil rekomendasi teman
+            FriendsRecommendation();
+        }
+
+        /**
+         * Metode untuk mencetak hasil searching
+         */
+        private void PrintingPath(List<String> Res)
+        {
+            Result.Text += tab;
+            if (Res.Count - 2 == 0)
+            {
+                Result.Text += "0";
+            }
+            else if (Res.Count - 2 == 1)
+            {
+                Result.Text += "1st";
+            }
+            else if (Res.Count - 2 == 2)
+            {
+                Result.Text += "2nd";
+            }
+            else if (Res.Count - 2 == 3)
+            {
+                Result.Text += "3rd";
+            }
+            else
+            {
+                Result.Text += (Res.Count - 2) + "th";
+            }
+            Result.Text += " degree connection." + nl;
+            Result.Text += tab + "Connection(s): ";
+            for (int i = 0; i < Res.Count; i++)
+            {
+                Result.Text += Res[i] + " ";
+                if (i != Res.Count - 1)
+                {
+                    Result.Text += "→ ";
+                }
+                else
+                {
+                    Result.Text += nl;
+                }
+            }
+        }
+
+        /**
+         * Metode untuk mencetak rekomendasi teman
+         */
+        private void FriendsRecommendation()
+        {
+            var Instance = new Search();
+            List<friendRec> RecsOfFriends;
+            RecsOfFriends = Instance.recFriends(UG, Src);
+
+            Result.Text += nl + "Friend recommendation(s) for account " + Src + ":" + nl;
+            foreach (friendRec friend in RecsOfFriends)
+            {
+                Result.Text += tab + "Account: " + friend.GetName();
+                Result.Text += ", " + friend.GetTotalMutual() + " mutual friend(s): ";
+                foreach (string mutualName in friend.GetMutualFriends)
+                {
+                    Result.Text += mutualName+ " ";
+                }
+                Result.Text += nl;
+                return;
+            }
+            Result.Text += tab + "No friend recommendation." + nl;
         }
 
         /**

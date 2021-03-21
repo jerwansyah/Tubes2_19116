@@ -7,9 +7,10 @@
     - [x] BFS (Axel)
     - [x] DFS (Acin)
 - [ ] GUI, UI/UX (Jejen)
-    - [x] Logo
-    - [x] ico
-- [ ] API buat convert graf ke msagl (Jejen)
+    - [x] Buat logo (Acin)
+    - [x] Buat ico (Acin)
+    - [ ] Masukin logo
+- [x] API buat convert graf ke msagl (Jejen)
 - [ ] [Laporan]((https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#))
 - [ ] Video
 
@@ -19,18 +20,16 @@
 
 > Menerima file eksternal. Baris pertama int, selanjutnya pasangan node.
 
-- [ ] Menampilkan graf dan berwarna (tidak berarah dan tidak berbobot) (Jejen)
-- [X] Fitur friend recomendation
-    - [ ] Menerima pilihan akun (klik node atau input keyboard atau form)
-    - [ ] BFS
-    - [ ] DFS
-    - [X] Menampilkan nama mutual secara terurut dari yang terbanyak
-- [ ] Fitur explore friends (common Nth degree connection)
-    - [ ] BFS
-    - [X] DFS
-    - [ ] Menerima pilihan dua akun yang belum berteman
-    - [ ] Menampilkan Nth degree connection dan memberikan jalur melalui akun mana saha sampai terhubung
-    - [ ] Menampilkan informasi jika tidak ditemukan jalur karena graph not fully connected
+- [x] Menampilkan graf dan berwarna (tidak berarah dan tidak berbobot) (Jejen)
+- [x] Fitur friend recomendation
+    - [x] Menerima pilihan akun (klik node atau input keyboard atau form)
+    - [x] Menampilkan nama mutual secara terurut dari yang terbanyak
+- [x] Fitur explore friends (common Nth degree connection)
+    - [x] BFS
+    - [x] DFS
+    - [x] Menerima pilihan dua akun yang belum berteman
+    - [x] Menampilkan Nth degree connection dan memberikan jalur melalui akun sampai terhubung
+    - [x] Menampilkan informasi jika tidak ditemukan jalur karena graph not fully connected
 
 # Links
 [MSAGL](https://github.com/microsoft/automatic-graph-layout)
