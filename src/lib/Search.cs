@@ -72,6 +72,7 @@ namespace BaconPancakes
             Console.WriteLine();
         }
 
+        // Use exception handling for no connected friends
         public List<string> DFS(UndirectedGraph graph_in, string start, string end) {
             // Kalau ga ada, gon
             if (!graph_in.IsNodeExist(start) || !graph_in.IsNodeExist(end)) {
@@ -166,24 +167,24 @@ namespace BaconPancakes
             return recommended.OrderByDescending(o => o.getTotalMutual()).ToList();
         }
 
-        // static void Main(string[] args) {
-        //     // ini buat testing aja
-        //     UndirectedGraph g = new UndirectedGraph();
-        //     g.AddEdge("A", "B");
-        //     g.AddEdge("A", "C");
-        //     g.AddEdge("A", "D");
-        //     g.AddEdge("B", "C");
-        //     g.AddEdge("B", "E");
-        //     g.AddEdge("B", "F");
-        //     g.AddEdge("C", "F");
-        //     g.AddEdge("C", "G");
-        //     g.AddEdge("D", "G");
-        //     g.AddEdge("D", "F");
-        //     g.AddEdge("E", "H");
-        //     g.AddEdge("E", "F");
-        //     g.AddEdge("F", "H");
+        static void Main(string[] args) {
+            // ini buat testing aja
+            UndirectedGraph g = new UndirectedGraph();
+            g.AddEdge("A", "B");
+            g.AddEdge("A", "C");
+            g.AddEdge("A", "D");
+            g.AddEdge("B", "C");
+            g.AddEdge("B", "E");
+            g.AddEdge("B", "F");
+            g.AddEdge("C", "F");
+            g.AddEdge("C", "G");
+            g.AddEdge("D", "G");
+            g.AddEdge("D", "F");
+            g.AddEdge("E", "H");
+            g.AddEdge("E", "F");
+            g.AddEdge("F", "H");
 
-        //     var instance = new Search();
+            var instance = new Search();
 
             // Node jir = g.getNodeOf("A");
             // List<Node> hehe = g.getAdjacentNodes(jir);
@@ -195,11 +196,17 @@ namespace BaconPancakes
             // foreach (friendRec abc in tes) {
             //     abc.print();
             // }
-            // List<string> tes = instance.DFS(g, "H", "G");
-            // foreach (string abc in tes) {
-            //     Console.WriteLine(abc);
+            // g.AddEdge("I", "J");
+            // try {
+            //     List<string> tes = instance.DFS(g, "A", "J");
+            //     foreach (string abc in tes) {
+            //         Console.WriteLine(abc);
+            //     }
             // }
-        // }
+            // catch {
+            //     Console.WriteLine("nuh");
+            // }
+        }
     }
 
 }
