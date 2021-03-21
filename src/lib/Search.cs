@@ -8,51 +8,74 @@ namespace BaconPancakes
 {
     public class Search
     {
+        private List<string> NodeListToStringList(List<Node> list_node) {
+            List<string> list_hasil = new List<string>();
+            foreach (Node node in list_node) {
+                list_hasil.Add(node.GetNode1());
+            }
+            return list_hasil;
+        }
+
+        private void CopyNodeList(List<Node> list_in, List<Node> list_out) {
+            foreach (Node item in list_in) {
+                list_out.Add(item);
+            }
+        }
 
         public List<string> BFS(UndirectedGraph graph_in, string start, string end)
         {
             // Kalau ga ada, return
-            if (!graph_in.IsNodeExist(start) || graph_in.IsNodeExist(end)) {
+            if (!graph_in.IsNodeExist(start) || !graph_in.IsNodeExist(end)) {
                 return null;
             }
             
             // Inisialisasi
-            List<string> path = new List<string>();
-            Node startNode = graph_in.GetNodeOf(start);
-            List<Node> antrian_node = new List<Node>();
-            antrian_node.Add(startNode);
-            bool[] dikunjungi_array = new bool[graph_in.Count];
+            Queue<List<Node>> penyimpan_path = new Queue<List<Node>>();
+            List<Node> currentPath = new List<Node>();
+
+            Node currentNode = graph_in.GetNodeOf(start);
+
+            currentPath.Add(currentNode);
+            penyimpan_path.Enqueue(currentPath);
             
-            Node currentNode;
-            while (antrian_node.Count > 0) {
+            int i = 0;
+            while (penyimpan_path.Count > 0) {
+                i += 1;                
+                Console.WriteLine("Iteration " + i + " started");
+                // CopyNodeList(penyimpan_path.Dequeue(), currentPath);
+                currentPath = new List<Node>(penyimpan_path.Dequeue());
 
-                // Pop to path and currentNode
-                currentNode = antrian_node.First();
-                path.Add(currentNode.GetNode1());
-
-                antrian_node.Remove(antrian_node.First());
+                foreach (Node step in currentPath) {
+                    Console.WriteLine(step.GetNode1());
+                }
+                
+                currentNode = currentPath.Last();
+                Console.WriteLine("Current node : " + currentNode.GetNode1());
 
                 if (currentNode.GetNode1() == end) {
-                    return path;
+                    return NodeListToStringList(currentPath);
                 }
 
                 foreach (Node adjacentNode in graph_in.GetAdjacentNodes(currentNode)) {
-                    List<string> new_path = new List<string>();
-                    new_path.Add(adjacentNode.GetNode1());
+                    if (currentNode.GetNode1() == end) {
+                        return NodeListToStringList(currentPath);
+                    }
 
-                    antrian_node.Add(adjacentNode);
+                    if (!currentPath.Contains(adjacentNode)) {
+                        List<Node> new_path = new List<Node>();
+                        new_path.Clear();
+                        new_path.AddRange(currentPath);
+                        new_path.Add(adjacentNode);
 
-                    // int nodeIndex = graph_in.getIndexOf(adjacentNode);
-                    // // jika node di index tersebut belum dikunjungi
-                    // if (!dikunjungi_array[nodeIndex]) {
-                    //     // tambahkan tetangga itu ke antrian_Node paling belakang
-                    //     antrian_node.Add(adjacentNode);
-
-                    //     // set sudah dikunjungi
-                    //     dikunjungi_array[nodeIndex] = true;
-                    // }
-
+                        Console.WriteLine("\nWhat does the new path contains eh?");
+                        foreach (Node step in new_path) {
+                            Console.WriteLine(step.GetNode1());
+                        }
+                        penyimpan_path.Enqueue(new_path);
+                    }
                 }
+                Console.WriteLine("Iteration " + i + " ended");
+                Console.WriteLine("penyimpan_path contains " + penyimpan_path.Count + "\n");
             }
             return null;
         }

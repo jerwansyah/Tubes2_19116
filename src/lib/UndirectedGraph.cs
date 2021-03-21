@@ -43,6 +43,7 @@ namespace BaconPancakes
             if (!adjacent_nodes.Contains(node2))
             {
                 adjacent_nodes.Add(node2);
+                adjacent_nodes.Sort();
             }
         }
 

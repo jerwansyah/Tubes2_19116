@@ -64,36 +64,40 @@ namespace BaconPancakes
         }
 
         // TO SEE THE FileParser x UndirectedGraph UNCOMMENT THIS (Block Them, Ctrl + Shift + /)
-        //static void Main(String[] args)
-        //{
-        //    FileParser fileParse = new FileParser();
-        //    UndirectedGraph undirectedGraph = new UndirectedGraph();
+        // static void Main(String[] args)
+        // {
+        //     FileParser fileParse = new FileParser();
+        //     UndirectedGraph undirectedGraph = new UndirectedGraph();
 
-        //    string filename = "..\\..\\test\\test1.txt";
-        //    try
-        //    {
-        //        undirectedGraph = fileParse.ListToUndirectedGraph(fileParse.FilenameToList(filename));
-        //    }
-        //    catch (FileFormatException e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        return;
-        //    }
-        //    finally
-        //    {
-        //        undirectedGraph.print();
-        //        List<string> hasil = new List<string>();
-        //        hasil = undirectedGraph.BFS("A", "F");
-        //        Console.WriteLine("Test");
-        //        if (hasil != null)
-        //        {
-        //            foreach (string au in hasil)
-        //            {
-        //                Console.WriteLine(au);
-        //                Console.WriteLine("huem");
-        //            }
-        //        }
-        //    }
-        //}
+        //     string filename = "..\\..\\test\\test1.txt";
+        //     try
+        //     {
+        //         undirectedGraph = fileParse.ListToUndirectedGraph(fileParse.FilenameToList(filename));
+        //     }
+        //     catch (FileFormatException e)
+        //     {
+        //         Console.WriteLine(e.Message);
+        //         return;
+        //     }
+        //     finally
+        //     {
+        //         //    undirectedGraph.print();
+        //         List<string> hasil = new List<string>();
+        //         Search search = new Search();
+        //         hasil = search.BFS(undirectedGraph, "A", "I");
+        //         Console.WriteLine("Test");
+
+        //         if (hasil == null)
+        //         {
+        //             Console.WriteLine("No path found");
+
+        //         } else {
+        //             foreach (string au in hasil)
+        //             {
+        //                 Console.WriteLine(au);
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
