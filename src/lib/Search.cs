@@ -18,7 +18,7 @@ namespace BaconPancakes
             
             // Inisialisasi
             List<string> path = new List<string>();
-            Node startNode = graph_in.getNodeOf(start);
+            Node startNode = graph_in.GetNodeOf(start);
             List<Node> antrian_node = new List<Node>();
             antrian_node.Add(startNode);
             bool[] dikunjungi_array = new bool[graph_in.Count];
@@ -28,17 +28,17 @@ namespace BaconPancakes
 
                 // Pop to path and currentNode
                 currentNode = antrian_node.First();
-                path.Add(currentNode.getNode1());
+                path.Add(currentNode.GetNode1());
 
                 antrian_node.Remove(antrian_node.First());
 
-                if (currentNode.getNode1() == end) {
+                if (currentNode.GetNode1() == end) {
                     return path;
                 }
 
-                foreach (Node adjacentNode in graph_in.getAdjacentNodes(currentNode)) {
+                foreach (Node adjacentNode in graph_in.GetAdjacentNodes(currentNode)) {
                     List<string> new_path = new List<string>();
-                    new_path.Add(adjacentNode.getNode1());
+                    new_path.Add(adjacentNode.GetNode1());
 
                     antrian_node.Add(adjacentNode);
 
@@ -81,7 +81,7 @@ namespace BaconPancakes
 
             // Inisialisasi
             List<string> path = new List<string>();
-            Node nodeStart = graph_in.getNodeOf(start);
+            Node nodeStart = graph_in.GetNodeOf(start);
             Stack<string> stack = new Stack<string>();
             List<string> visited = new List<string>();
 
@@ -89,7 +89,7 @@ namespace BaconPancakes
             bool backtrack = false;
             stack.Push(start);
             Node currNode = nodeStart;
-            while (currNode.getNode1() != end) {
+            while (currNode.GetNode1() != end) {
                 // kasus kalo sebelumnya bukan backtrack
                 if (!backtrack) {
                     stack.Pop();
@@ -157,34 +157,34 @@ namespace BaconPancakes
             // Cari tau mutual friends siapa aja
             foreach (Node namaTemen in temen) {
                 foreach (friendRec temenRekomen in recommended) {
-                    if (namaTemen.IsAdjacent(temenRekomen.getName())) {
-                        temenRekomen.addMutualFriend(namaTemen.getNode1());
+                    if (namaTemen.IsAdjacent(temenRekomen.GetName())) {
+                        temenRekomen.AddMutualFriend(namaTemen.GetNode1());
                     }
                 }
             }
 
             // Ini urutin berdasarkan mutual friends yeak
-            return recommended.OrderByDescending(o => o.getTotalMutual()).ToList();
+            return recommended.OrderByDescending(o => o.GetTotalMutual()).ToList();
         }
 
-        static void Main(string[] args) {
-            // ini buat testing aja
-            UndirectedGraph g = new UndirectedGraph();
-            g.AddEdge("A", "B");
-            g.AddEdge("A", "C");
-            g.AddEdge("A", "D");
-            g.AddEdge("B", "C");
-            g.AddEdge("B", "E");
-            g.AddEdge("B", "F");
-            g.AddEdge("C", "F");
-            g.AddEdge("C", "G");
-            g.AddEdge("D", "G");
-            g.AddEdge("D", "F");
-            g.AddEdge("E", "H");
-            g.AddEdge("E", "F");
-            g.AddEdge("F", "H");
+        // static void Main(string[] args) {
+        //     // ini buat testing aja
+        //     UndirectedGraph g = new UndirectedGraph();
+        //     g.AddEdge("A", "B");
+        //     g.AddEdge("A", "C");
+        //     g.AddEdge("A", "D");
+        //     g.AddEdge("B", "C");
+        //     g.AddEdge("B", "E");
+        //     g.AddEdge("B", "F");
+        //     g.AddEdge("C", "F");
+        //     g.AddEdge("C", "G");
+        //     g.AddEdge("D", "G");
+        //     g.AddEdge("D", "F");
+        //     g.AddEdge("E", "H");
+        //     g.AddEdge("E", "F");
+        //     g.AddEdge("F", "H");
 
-            var instance = new Search();
+        //     var instance = new Search();
 
             // Node jir = g.getNodeOf("A");
             // List<Node> hehe = g.getAdjacentNodes(jir);

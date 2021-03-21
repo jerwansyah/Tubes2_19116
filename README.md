@@ -10,7 +10,7 @@
 1. Lorem ipsum
 
 ## Author
-### Kelompok 16 | Bacon Pancake
+### Kelompok 16 | Bacon Pancakes
 | NIM      | Nama                  |
 |----------|-----------------------|
 | 13519116 | Jeane Mikha Erwansyah |

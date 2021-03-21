@@ -15,19 +15,19 @@ namespace BaconPancakes {
             totalMutual = 0;
         }
         
-        public string getName() {
+        public string GetName() {
             return name;
         }
 
-        public int getTotalMutual() {
+        public int GetTotalMutual() {
             return totalMutual;
         }
 
-        public List<string> getMutualFriends {
+        public List<string> GetMutualFriends {
             get {return mutualFriends;}
         }
 
-        public void addMutualFriend(string name) {
+        public void AddMutualFriend(string name) {
             if (!mutualFriends.Contains(name)) {
                 mutualFriends.Add(name);
             }
