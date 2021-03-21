@@ -12,25 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-<<<<<<< Updated upstream
 using System.Windows.Forms;
 using Microsoft.Msagl;
 using Microsoft.Msagl.Splines;
-=======
-
-using System.Drawing;
-using System.IO;
-using System.Security;
-using System.Windows.Forms;
-
->>>>>>> Stashed changes
 // using BaconPancakes.lib;
 
 namespace BaconPancakes
 {
     public partial class MainWindow : Window
     {
-<<<<<<< Updated upstream
         // Atribut
         private UndirectedGraph graph;
 
@@ -41,14 +31,6 @@ namespace BaconPancakes
         {
             InitializeComponent();
             CenterWindowOnScreen();
-=======
-        private string filepath;
-        private system.windows.controls.textbox textbox1;
-        private system.windows.controls.label label1;
-        public mainwindow()
-        {
-            initializecomponent();
->>>>>>> Stashed changes
         }
 
         private void CenterWindowOnScreen()
@@ -95,11 +77,6 @@ namespace BaconPancakes
 
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< Updated upstream
-=======
-            Shazam();
-
->>>>>>> Stashed changes
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 InitialDirectory = @"",
@@ -119,7 +96,6 @@ namespace BaconPancakes
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-<<<<<<< Updated upstream
                 string fileName = openFileDialog1.FileName;
                 File_Name.Content = openFileDialog1.SafeFileName;
                 FileParser fileParse = new FileParser();
@@ -147,18 +123,6 @@ namespace BaconPancakes
             {
                 File_Name.Content = "File not read!";
             }
-=======
-                /*textBox1.Text = openFileDialog1.FileName;*/
-                filepath = openFileDialog1.FileName;
-                System.Windows.Forms.MessageBox.Show("File Content at path: " + filepath);
-                textBox1.Text = "File path: " + filepath;
-                label1.Content = "File path: " + filepath;
-            }
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
->>>>>>> Stashed changes
         }
     }
 }
