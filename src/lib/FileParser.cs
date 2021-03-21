@@ -39,6 +39,7 @@ namespace BaconPancakes
             for (int i = 1; i <= numberOfEdge && text[i] != null; i += 1)
             {
                 string[] x = text[i].Split(' ');
+                Console.WriteLine(x[0]);
                 if (x.Length > 2)
                 {
                     throw new FileFormatException("[" + (i + 1) + "] An edge connects more than two nodes.");
@@ -49,6 +50,7 @@ namespace BaconPancakes
                 }
             }
 
+
             return list_hasil;
         }
 
@@ -57,7 +59,11 @@ namespace BaconPancakes
             UndirectedGraph undirected_graph = new UndirectedGraph();
             foreach (string[] x in list_hasil)
             {
-                undirected_graph.AddEdge(x[0], x[1]);
+                if (x.Length == 1) {
+                    undirected_graph.AddNode(x[0]);
+                } else {
+                    undirected_graph.AddEdge(x[0], x[1]);
+                }
             }
             return undirected_graph;
         }
@@ -80,18 +86,27 @@ namespace BaconPancakes
         //     }
         //     finally
         //     {
-        //         //    undirectedGraph.print();
-        //         List<string> hasil = new List<string>();
+        //         undirectedGraph.print();
+        //         List<string> hasil1 = new List<string>();
+        //         List<string> hasil2 = new List<string>();
         //         Search search = new Search();
-        //         hasil = search.BFS(undirectedGraph, "A", "I");
-        //         Console.WriteLine("Test");
+        //         hasil1 = search.DFS(undirectedGraph, "A", "F");
+        //         hasil2 = search.BFS(undirectedGraph, "A", "F");
 
-        //         if (hasil == null)
+        //         if (hasil1 == null || hasil2 == null)
         //         {
         //             Console.WriteLine("No path found");
 
         //         } else {
-        //             foreach (string au in hasil)
+        //             Console.WriteLine("\n Hasil BFS");
+        //             foreach (string au in hasil1)
+        //             {
+        //                 Console.WriteLine(au);
+        //             }
+
+        //             Console.WriteLine("\n Hasil DFS");
+
+        //             foreach (string au in hasil2)
         //             {
         //                 Console.WriteLine(au);
         //             }

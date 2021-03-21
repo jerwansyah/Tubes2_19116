@@ -136,7 +136,12 @@ namespace BaconPancakes
             {
                 GetNodeOf(node2).AddAdjacency(node1);
             }
+        }
 
+        public void AddNode(string node) {
+            if (!IsNodeExist(node)) {
+                nodes.Add(new Node(node));
+            }
         }
 
         public void RemoveEdge(string node1, string node2)
@@ -152,59 +157,16 @@ namespace BaconPancakes
         {
             foreach (Node hasil in GetNodes())
             {
-                foreach (string hasil_node2 in hasil.GetAdjacentNodes())
-                {
-                    Console.WriteLine(hasil.GetNode1() + ", " + hasil_node2);
+                if (hasil.GetAdjacentNodes().Count == 0) {
+                    Console.WriteLine(hasil.GetNode1());
                 }
-            }
-        }
-
-        public List<string> BFS(string start, string end)
-        {
-            // Kalau ga ada, return
-            if (!IsNodeExist(start) || !IsNodeExist(end))
-            {
-                return null;
-            }
-
-            // Inisialisasi
-            List<string> path = new List<string>();
-            Node startNode = GetNodeOf(start);
-            Queue<Node> antrian_node = new Queue<Node>();
-            antrian_node.Enqueue(startNode);
-            bool[] dikunjungi_array = new bool[Count];
-
-            Node currentNode;
-            while (antrian_node.Count > 0)
-            {
-
-                // Pop to path and currentNode
-                currentNode = antrian_node.Dequeue();
-                // dikunjungi_array[getIndexOf(currentNode)] = true;
-
-                foreach (Node adjacentNode in GetAdjacentNodes(currentNode))
-                {
-                    if (!dikunjungi_array[GetIndexOf(adjacentNode)])
+                else {
+                    foreach (string hasil_node2 in hasil.GetAdjacentNodes())
                     {
-                        List<string> new_path = new List<string>();
-                        new_path = path;
-                        new_path.Append(adjacentNode.GetNode1());
-                        antrian_node.Append(adjacentNode);
+                        Console.WriteLine(hasil.GetNode1() + ", " + hasil_node2);
                     }
-
-                    // int nodeIndex = graph_in.getIndexOf(adjacentNode);
-                    // // jika node di index tersebut belum dikunjungi
-                    // if (!dikunjungi_array[nodeIndex]) {
-                    //     // tambahkan tetangga itu ke antrian_Node paling belakang
-                    //     antrian_node.Add(adjacentNode);
-
-                    //     // set sudah dikunjungi
-                    //     dikunjungi_array[nodeIndex] = true;
-                    // }
-
                 }
             }
-            return null;
         }
     }
 }

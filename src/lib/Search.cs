@@ -41,16 +41,15 @@ namespace BaconPancakes
             int i = 0;
             while (penyimpan_path.Count > 0) {
                 i += 1;                
-                Console.WriteLine("Iteration " + i + " started");
-                // CopyNodeList(penyimpan_path.Dequeue(), currentPath);
+                // Console.WriteLine("Iteration " + i + " started");
                 currentPath = new List<Node>(penyimpan_path.Dequeue());
 
-                foreach (Node step in currentPath) {
-                    Console.WriteLine(step.GetNode1());
-                }
+                // foreach (Node step in currentPath) {
+                //     Console.WriteLine(step.GetNode1());
+                // }
                 
                 currentNode = currentPath.Last();
-                Console.WriteLine("Current node : " + currentNode.GetNode1());
+                // Console.WriteLine("Current node : " + currentNode.GetNode1());
 
                 if (currentNode.GetNode1() == end) {
                     return NodeListToStringList(currentPath);
@@ -67,15 +66,15 @@ namespace BaconPancakes
                         new_path.AddRange(currentPath);
                         new_path.Add(adjacentNode);
 
-                        Console.WriteLine("\nWhat does the new path contains eh?");
-                        foreach (Node step in new_path) {
-                            Console.WriteLine(step.GetNode1());
-                        }
+                        // Console.WriteLine("\nWhat does the new path contains eh?");
+                        // foreach (Node step in new_path) {
+                        //     Console.WriteLine(step.GetNode1());
+                        // }
                         penyimpan_path.Enqueue(new_path);
                     }
                 }
-                Console.WriteLine("Iteration " + i + " ended");
-                Console.WriteLine("penyimpan_path contains " + penyimpan_path.Count + "\n");
+                // Console.WriteLine("Iteration " + i + " ended");
+                // Console.WriteLine("penyimpan_path contains " + penyimpan_path.Count + "\n");
             }
             return null;
         }
