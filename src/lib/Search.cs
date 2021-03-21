@@ -58,22 +58,49 @@ namespace BaconPancakes
         }
 
         public List<string> DFS(UndirectedGraph graph_in, string start, string end) {
+            // Kalau ga ada, gon
             if (!graph_in.IsNodeExist(start) || graph_in.IsNodeExist(end)) {
                 return null;
             }
 
+            // Inisialisasi
             List<string> path = new List<string>();
             Node nodeStart = graph_in.getNodeOf(start);
-            List<Node> stack = new List<Node>();
-            stack.Add(nodeStart);
-            bool[] visited = new bool[graph_in.Count];
+            Stack<string> stack = new Stack<string>();
+            List<string> visited = new List<string>();
+            // List<Node> listOfNodes = graph_in.GetNodes();
 
+            visited.Add(start);
+            bool backtrack = false;
+            stack.Push(start);
             Node currNode = nodeStart;
-            // while (currNode.getNode1() != end) {
+            while (currNode.getNode1() != end) {
+                if (!backtrack) {
+                    stack.Pop();
+                }
+                
+                // Masukin jalan yang bisa dipake
+                List<string> adjacentNodes = currNode.getAdjacentNodes();
+                foreach (string nodeName in adjacentNodes) {
+                    stack.Push(nodeName);
+                }
 
-            // }
+                // Cek nodenya di ujung atau ga
+                if (!currNode.IsAdjacent(stack.Peek())) {
+                    backtrack = true;
+                    visited.Add(currNode.getNode1());
+                }
+                else {
+                    backtrack = false;
+                    if (!visited.Contains(currNode.getNode1())) {
+                        path.Add(currNode.getNode1());
+                    }
+                }
 
-            return null;
+                currNode = graph_in.getNodeOf(stack.Peek());
+            }
+
+            return path;
         }
 
         public List<friendRec> recFriends(UndirectedGraph graph_in, string start) {
@@ -104,11 +131,5 @@ namespace BaconPancakes
             return recommended.OrderByDescending(o => o.getTotalMutual()).ToList();
         }
 
-        // explore pake idf, rec friends pake dls
-
-        // static void Main(String[] args)
-        // {
-               
-        // }
     }
 }
