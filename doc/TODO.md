@@ -3,12 +3,12 @@
     - [x] Node
     - [x] Struktur data graf
 - [x] Parser (Axel)
-- [ ] Searching
-    - [?] BFS (Axel)
-    - [X] DFS (Acin)
+- [x] Searching
+    - [x] BFS (Axel)
+    - [x] DFS (Acin)
 - [ ] GUI, UI/UX (Jejen)
-    - [ ] Logo
-    - [ ] ico
+    - [x] Logo
+    - [x] ico
 - [ ] API buat convert graf ke msagl (Jejen)
 - [ ] [Laporan]((https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#))
 - [ ] Video
