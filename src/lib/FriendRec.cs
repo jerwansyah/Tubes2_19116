@@ -33,5 +33,14 @@ namespace BaconPancakes {
             }
             totalMutual++;
         }
+
+        public void print() {
+            Console.WriteLine("Nama Akun: " + name);
+            Console.WriteLine(totalMutual + " mutual friends:");
+            foreach (string mutualName in mutualFriends) {
+                Console.WriteLine(mutualName);
+            }
+            Console.WriteLine();
+        }
     }
 }
