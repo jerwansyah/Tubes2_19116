@@ -49,7 +49,6 @@ namespace BaconPancakes
                 }
             }
 
-
             return list_hasil;
         }
 

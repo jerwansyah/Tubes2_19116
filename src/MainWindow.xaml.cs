@@ -18,27 +18,29 @@ using Microsoft.Msagl.Splines;
 using Graph = Microsoft.Msagl.Drawing.Graph;
 using Edge = Microsoft.Msagl.Drawing.Edge;
 using MSAGLNode = Microsoft.Msagl.Drawing.Node;
+using Color = Microsoft.Msagl.Drawing.Color;
 
 namespace BaconPancakes
 {
     public partial class MainWindow : Window
     {
-        // Atribut
+        /*** Atribut ***/
         private UndirectedGraph UG;
-        private Node Src;
-        private Node Dest;
+        private String Src;
+        private String Dest;
 
-        // Metode
+        /*** Metode ***/
         public System.Windows.Forms.ComboBox.ObjectCollection Items { get; }
 
         public MainWindow()
         {
             InitializeComponent();
             CenterWindowOnScreen();
-            //Node_Src.Text = "Choose a node...";
-            //Node_Dest.Text = "Choose a node...";
         }
 
+        /**
+         * Metode untuk meletakkan jendela di tengah layar
+         */
         private void CenterWindowOnScreen()
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
@@ -49,20 +51,22 @@ namespace BaconPancakes
             Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
-        //    graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-        //    graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
-        //    graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
-        //    Microsoft.Msagl.Drawing.Node c = graph.FindNode("C");
-        //    c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
-
+        /**
+         * Metode (Event Handler) untuk menampilkan hasil searching
+         * sesuai dengan semua masukan
+         */
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            // Jika tidak ada file yang di-submit
+            // Jika tidak ada file yang di-submit maka metode akan berhenti
             if (UG == null || Node_Src.SelectedItem == null || Node_Dest.SelectedItem == null)
             {
                 Result.Text = "Invalid file or input";
                 return;
             }
+
+            // Mengambil nilai-nilai simpul sumber dan tujuan
+            Src = (string)Node_Src.SelectedValue;
+            Dest = (string)Node_Dest.SelectedValue;
 
             // Membuat graf
             Graph G = new Graph("graph");
@@ -96,21 +100,101 @@ namespace BaconPancakes
             }
             this.gViewer.Graph = G;
 
-            if (DFS.IsChecked == true)
+            // Mencetak hasil
+            string nl = "\r\n";
+            Result.Text = "Akun yang dipilih adalah " + Src + " dan " + Dest + nl;
+
+            var Instance = new Search();
+            List<String> Res;
+
+            if (DFS_RB.IsChecked == true)
             {
-                string nl = "\r\n";
-                Result.Text = "to yeet" + nl;
-                Result.Text += "or not to yeet";
+                try
+                {
+                    Res = Instance.DFS(UG, Src, Dest);
+                    foreach (string pancake in Res)
+                    {
+                        Result.Text += pancake + " ";
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("DFS broke");
+                    Result.Text = "Tidak ada jalur koneksi yang tersedia" + nl;
+                    return;
+                }
+
+                ColoringGraph(Res, G);
             }
             else
             {
-                Result.Text = "";
+                try
+                {
+                    Res = Instance.BFS(UG, Src, Dest);
+                    foreach (string pancake in Res)
+                    {
+                        Result.Text += pancake + " ";
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("BFS broke");
+                    Result.Text += "Tidak ada jalur koneksi yang tersedia" + nl;
+                    return;
+                }
+
+                ColoringGraph(Res, G);
+            }
+
+            // Mewarnai simpul awal dan akhir
+            MSAGLNode Src_Copy = G.FindNode(Src);
+            MSAGLNode Dest_Copy = G.FindNode(Dest);
+
+            Src_Copy.Attr.FillColor = Color.Goldenrod;
+            Dest_Copy.Attr.FillColor = Color.Goldenrod;
+        }
+
+        /**
+         * Metode untuk mewarnai graf
+         */
+        private void ColoringGraph(List<String> SearchResult, Graph G)
+        {
+            // Mewarnai sisi
+            for (int i = 0; i < SearchResult.Count - 1; i++)
+            {
+                foreach (Edge E1 in G.Edges)
+                {
+                    if (E1.Source == SearchResult[i] && E1.Target == SearchResult[i + 1] ||
+                        E1.Target == SearchResult[i] && E1.Source == SearchResult[i + 1])
+                    {
+                        E1.Attr.Color = Color.Peru;
+                    }
+                }
+            }
+
+            // Mewarnai simpul
+            for (int i = 1; i < SearchResult.Count - 1; i++)
+            {
+                foreach (MSAGLNode N1 in G.Nodes)
+                {
+                    if (N1.Id == SearchResult[i])
+                    {
+                        N1.Attr.Color = Color.SaddleBrown;
+                        N1.Attr.FillColor = Color.Moccasin;
+                    }
+                }
             }
         }
 
+        /**
+         * Metode (Event Handler) untuk menelusuri file
+         */
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
+            // Mengosongkan TextBox Result
             Result.Text = "";
+
+            // Membuka browser
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 InitialDirectory = @"",
@@ -128,6 +212,7 @@ namespace BaconPancakes
                 ShowReadOnly = true
             };
 
+            // Parsing
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string fileName = openFileDialog1.FileName;
@@ -144,6 +229,7 @@ namespace BaconPancakes
                 }
             }
 
+            // Mengisi item ComboBox
             if (UG != null)
             {
                 Node_Src.Items.Clear();
@@ -154,7 +240,6 @@ namespace BaconPancakes
                     Node_Src.Items.Add(n.GetNode1());
                     Node_Dest.Items.Add(n.GetNode1());
                 }
-                return;
             }
             else
             {

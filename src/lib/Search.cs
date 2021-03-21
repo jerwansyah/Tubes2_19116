@@ -87,10 +87,10 @@ namespace BaconPancakes
             Console.WriteLine();
         }
 
-        public void printPath(List<string> asu) {
+        public void printPath(List<string> bacon) {
             Console.WriteLine("printpath ini");
-            foreach (string babi in asu) {
-                Console.Write(babi + " ");
+            foreach (string pancake in bacon) {
+                Console.Write(pancake + " ");
             }
             Console.WriteLine();
         }
