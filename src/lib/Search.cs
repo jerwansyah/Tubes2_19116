@@ -118,8 +118,7 @@ namespace BaconPancakes
                 if (!backtrack) {
                     stack.Pop();
                     List<string> adjacentNodes = currNode.GetAdjacentNodes();
-                    adjacentNodes.Reverse();
-                    foreach (string nodeName in adjacentNodes) {
+                    foreach (string nodeName in adjacentNodes.ToList().AsEnumerable().Reverse()) {
                         if (!visited.Contains(nodeName) && !path.Contains(nodeName)) {
                             stack.Push(nodeName);
                         }
