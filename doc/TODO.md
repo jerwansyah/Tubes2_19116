@@ -6,9 +6,7 @@
     - [ ] Nama node sesuai input
 - [ ] Searching
     - [?] BFS (Axel)
-    - [ ] DFS (Acin)
-        - [ ] DLS
-        - [ ] IDS
+    - [X] DFS (Acin)
 - [ ] GUI, UI/UX (Jejen)
     - [ ] Logo
     - [ ] ico
@@ -23,14 +21,14 @@
 > Menerima file eksternal. Baris pertama int, selanjutnya pasangan node.
 
 - [ ] Menampilkan graf dan berwarna (tidak berarah dan tidak berbobot) (Jejen)
-- [ ] Fitur friend recomendation
+- [X] Fitur friend recomendation
     - [ ] Menerima pilihan akun (klik node atau input keyboard atau form)
     - [ ] BFS
     - [ ] DFS
-    - [ ] Menampilkan nama mutual secara terurut dari yang terbanyak
+    - [X] Menampilkan nama mutual secara terurut dari yang terbanyak
 - [ ] Fitur explore friends (common Nth degree connection)
     - [ ] BFS
-    - [ ] DFS
+    - [X] DFS
     - [ ] Menerima pilihan dua akun yang belum berteman
     - [ ] Menampilkan Nth degree connection dan memberikan jalur melalui akun mana saha sampai terhubung
     - [ ] Menampilkan informasi jika tidak ditemukan jalur karena graph not fully connected
