@@ -35,8 +35,8 @@ namespace BaconPancakes
         {
             InitializeComponent();
             CenterWindowOnScreen();
-            Node_Src.Text = "Choose a node...";
-            Node_Dest.Text = "Choose a node...";
+            //Node_Src.Text = "Choose a node...";
+            //Node_Dest.Text = "Choose a node...";
         }
 
         private void CenterWindowOnScreen()

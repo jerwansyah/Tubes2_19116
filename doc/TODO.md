@@ -3,7 +3,6 @@
     - [x] Node
     - [x] Struktur data graf
 - [x] Parser (Axel)
-    - [ ] Nama node sesuai input
 - [ ] Searching
     - [?] BFS (Axel)
     - [X] DFS (Acin)

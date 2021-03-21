@@ -93,7 +93,7 @@ namespace BaconPancakes
                 // kasus kalo sebelumnya bukan backtrack
                 if (!backtrack) {
                     stack.Pop();
-                    List<string> adjacentNodes = currNode.getAdjacentNodes();
+                    List<string> adjacentNodes = currNode.GetAdjacentNodes();
                     adjacentNodes.Reverse();
                     foreach (string nodeName in adjacentNodes) {
                         if (!visited.Contains(nodeName) && !path.Contains(nodeName)) {
@@ -106,8 +106,8 @@ namespace BaconPancakes
                     // example: path = A B C F
                     //          stack.top() = E (ceritanya F sama E tetangga)
                     //          currNode = F
-                    if (currNode.getNode1() == path[path.Count-1] && currNode.IsAdjacent(stack.Peek())) {
-                            currNode = graph_in.getNodeOf(stack.Peek());
+                    if (currNode.GetNode1() == path[path.Count-1] && currNode.IsAdjacent(stack.Peek())) {
+                            currNode = graph_in.GetNodeOf(stack.Peek());
                             stack.Pop();
                     }
                 }
@@ -115,38 +115,38 @@ namespace BaconPancakes
                 // Buat ngecek butuh backtrack atau ga
                 if (currNode.IsAdjacent(stack.Peek())) {
                     backtrack = false;
-                    path.Add(currNode.getNode1());
-                    currNode = graph_in.getNodeOf(stack.Peek());
+                    path.Add(currNode.GetNode1());
+                    currNode = graph_in.GetNodeOf(stack.Peek());
                 }
                 else {
                     backtrack = true;
-                    visited.Add(currNode.getNode1());
-                    path.Remove(currNode.getNode1());
+                    visited.Add(currNode.GetNode1());
+                    path.Remove(currNode.GetNode1());
 
                     // Kalo currNode ga tetanggaan sama stack.Top(), currNode = last element of path
                     if (!currNode.IsAdjacent(stack.Peek())) {
-                        currNode = graph_in.getNodeOf(path[path.Count-1]);
+                        currNode = graph_in.GetNodeOf(path[path.Count-1]);
                     }
                     else {
-                        currNode = graph_in.getNodeOf(stack.Peek());
+                        currNode = graph_in.GetNodeOf(stack.Peek());
                     }
                 }
             }
             // Sebenernya buat nambah end aja di path
-            path.Add(currNode.getNode1());
+            path.Add(currNode.GetNode1());
             return path;
         }
 
         public List<friendRec> recFriends(UndirectedGraph graph_in, string start) {
             // Inisialisasi
-            Node orang = graph_in.getNodeOf(start);
-            List<Node> temen = graph_in.getAdjacentNodes(orang);
+            Node orang = graph_in.GetNodeOf(start);
+            List<Node> temen = graph_in.GetAdjacentNodes(orang);
             List<friendRec> recommended = new List<friendRec>();
             List<string> RecFrens = new List<string>();
             
             // Didata dulu siapa yang bisa jadi recommended friends
             foreach (Node namaTemen in temen) {
-                foreach (string name in namaTemen.getAdjacentNodes()) {
+                foreach (string name in namaTemen.GetAdjacentNodes()) {
                     if (!RecFrens.Contains(name) && name != start && !orang.IsAdjacent(name)) {
                         RecFrens.Add(name);
                         recommended.Add(new friendRec(name));
@@ -206,7 +206,6 @@ namespace BaconPancakes
             // catch {
             //     Console.WriteLine("nuh");
             // }
-        }
+        // }
     }
-
 }
