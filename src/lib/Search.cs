@@ -57,9 +57,24 @@ namespace BaconPancakes
             return null;
         }
 
+        public void printStack(Stack<string> haha) {
+            foreach(string hehe in haha) {
+                Console.Write(hehe + " ");
+            }
+            Console.WriteLine();
+        }
+
+        public void printPath(List<string> asu) {
+            Console.WriteLine("printpath ini");
+            foreach (string babi in asu) {
+                Console.Write(babi + " ");
+            }
+            Console.WriteLine();
+        }
+
         public List<string> DFS(UndirectedGraph graph_in, string start, string end) {
             // Kalau ga ada, gon
-            if (!graph_in.IsNodeExist(start) || graph_in.IsNodeExist(end)) {
+            if (!graph_in.IsNodeExist(start) || !graph_in.IsNodeExist(end)) {
                 return null;
             }
 
@@ -68,53 +83,73 @@ namespace BaconPancakes
             Node nodeStart = graph_in.getNodeOf(start);
             Stack<string> stack = new Stack<string>();
             List<string> visited = new List<string>();
-            // List<Node> listOfNodes = graph_in.GetNodes();
 
             visited.Add(start);
             bool backtrack = false;
             stack.Push(start);
             Node currNode = nodeStart;
             while (currNode.getNode1() != end) {
+                // kasus kalo sebelumnya bukan backtrack
                 if (!backtrack) {
                     stack.Pop();
-                }
-                
-                // Masukin jalan yang bisa dipake
-                List<string> adjacentNodes = currNode.getAdjacentNodes();
-                foreach (string nodeName in adjacentNodes) {
-                    stack.Push(nodeName);
-                }
-
-                // Cek nodenya di ujung atau ga
-                if (!currNode.IsAdjacent(stack.Peek())) {
-                    backtrack = true;
-                    visited.Add(currNode.getNode1());
-                }
-                else {
-                    backtrack = false;
-                    if (!visited.Contains(currNode.getNode1())) {
-                        path.Add(currNode.getNode1());
+                    List<string> adjacentNodes = currNode.getAdjacentNodes();
+                    adjacentNodes.Reverse();
+                    foreach (string nodeName in adjacentNodes) {
+                        if (!visited.Contains(nodeName) && !path.Contains(nodeName)) {
+                            stack.Push(nodeName);
+                        }
                     }
                 }
+                else {
+                    // kalo ternyata currNode = di last element di path + currNode emang tetangga stack.top()
+                    // example: path = A B C F
+                    //          stack.top() = E (ceritanya F sama E tetangga)
+                    //          currNode = F
+                    if (currNode.getNode1() == path[path.Count-1] && currNode.IsAdjacent(stack.Peek())) {
+                            currNode = graph_in.getNodeOf(stack.Peek());
+                            stack.Pop();
+                    }
+                }
+                
+                // Buat ngecek butuh backtrack atau ga
+                if (currNode.IsAdjacent(stack.Peek())) {
+                    backtrack = false;
+                    path.Add(currNode.getNode1());
+                    currNode = graph_in.getNodeOf(stack.Peek());
+                }
+                else {
+                    backtrack = true;
+                    visited.Add(currNode.getNode1());
+                    path.Remove(currNode.getNode1());
 
-                currNode = graph_in.getNodeOf(stack.Peek());
+                    // Kalo currNode ga tetanggaan sama stack.Top(), currNode = last element of path
+                    if (!currNode.IsAdjacent(stack.Peek())) {
+                        currNode = graph_in.getNodeOf(path[path.Count-1]);
+                    }
+                    else {
+                        currNode = graph_in.getNodeOf(stack.Peek());
+                    }
+                }
             }
-
+            // Sebenernya buat nambah end aja di path
+            path.Add(currNode.getNode1());
             return path;
         }
 
         public List<friendRec> recFriends(UndirectedGraph graph_in, string start) {
             // Inisialisasi
-            List<Node> temen = graph_in.getAdjacentNodes(graph_in.getNodeOf(start));
+            Node orang = graph_in.getNodeOf(start);
+            List<Node> temen = graph_in.getAdjacentNodes(orang);
             List<friendRec> recommended = new List<friendRec>();
             List<string> RecFrens = new List<string>();
             
             // Didata dulu siapa yang bisa jadi recommended friends
             foreach (Node namaTemen in temen) {
-                string name = namaTemen.getNode1();
-                if (!RecFrens.Contains(name)) {
-                    RecFrens.Add(name);
-                    recommended.Add(new friendRec(name));
+                foreach (string name in namaTemen.getAdjacentNodes()) {
+                    if (!RecFrens.Contains(name) && name != start && !orang.IsAdjacent(name)) {
+                        RecFrens.Add(name);
+                        recommended.Add(new friendRec(name));
+                    }
                 }
             }
             
@@ -131,5 +166,40 @@ namespace BaconPancakes
             return recommended.OrderByDescending(o => o.getTotalMutual()).ToList();
         }
 
+        // static void Main(string[] args) {
+        //     // ini buat testing aja
+        //     UndirectedGraph g = new UndirectedGraph();
+        //     g.AddEdge("A", "B");
+        //     g.AddEdge("A", "C");
+        //     g.AddEdge("A", "D");
+        //     g.AddEdge("B", "C");
+        //     g.AddEdge("B", "E");
+        //     g.AddEdge("B", "F");
+        //     g.AddEdge("C", "F");
+        //     g.AddEdge("C", "G");
+        //     g.AddEdge("D", "G");
+        //     g.AddEdge("D", "F");
+        //     g.AddEdge("E", "H");
+        //     g.AddEdge("E", "F");
+        //     g.AddEdge("F", "H");
+
+        //     var instance = new Search();
+
+            // Node jir = g.getNodeOf("A");
+            // List<Node> hehe = g.getAdjacentNodes(jir);
+            // foreach (Node anjir in hehe) {
+            //     Console.WriteLine(anjir.getNode1());
+            // }
+
+            // List<friendRec> tes = instance.recFriends(g, "A");
+            // foreach (friendRec abc in tes) {
+            //     abc.print();
+            // }
+            // List<string> tes = instance.DFS(g, "H", "G");
+            // foreach (string abc in tes) {
+            //     Console.WriteLine(abc);
+            // }
+        // }
     }
+
 }
