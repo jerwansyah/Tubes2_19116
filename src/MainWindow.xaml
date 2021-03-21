@@ -16,8 +16,15 @@
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
         TextElement.FontWeight="Medium"
-        TextElement.FontSize="14">
+        TextElement.FontSize="14"
+        ResizeMode="CanResizeWithGrip">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFFFF9ED"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="66*"/>
             <ColumnDefinition Width="1363*"/>
@@ -26,23 +33,24 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="Browse" Content="Browse" HorizontalAlignment="Left" Height="26" Margin="170,146,0,0" VerticalAlignment="Top" Width="102" Click="Browse_Click" Grid.Column="1"/>
-        <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Height="42" Margin="2,380,0,0" VerticalAlignment="Top" Width="117" Click="Submit_Click" Grid.Column="1"/>
+        <Button x:Name="Browse" Content="Browse" HorizontalAlignment="Left" Height="26" Margin="170,146,0,0" VerticalAlignment="Top" Width="102" Click="Browse_Click" Grid.Column="1" Background="#FFF9A502" BorderBrush="#FFCB8600" Foreground="#FFFAFAFA"/>
+        <Button x:Name="Submit" Content="Submit" HorizontalAlignment="Left" Height="42" Margin="2,380,0,0" VerticalAlignment="Top" Width="117" Click="Submit_Click" Grid.Column="1" Background="#FFF9A502" BorderBrush="#FFCB8600" Foreground="#DDFFFFFF"/>
         <Label x:Name="Graph" Content="Graph File" HorizontalAlignment="Left" Height="41" Margin="64,148,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
-        <Label x:Name="Algorithm" Content="Algorithm" HorizontalAlignment="Left" Height="36" Margin="64,210,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
+        <Label x:Name="Algorithm" Content="Algorithm" HorizontalAlignment="Left" Height="36" Margin="64,210,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
         <Label x:Name="Node_Start" Content="Choose Account" HorizontalAlignment="Left" Height="37" Margin="64,267,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
         <Label x:Name="Node_End" Content="Explore friends with" HorizontalAlignment="Left" Height="37" Margin="64,325,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
-        <RadioButton x:Name="DFS_RB" Content="DFS" GroupName="Algo" HorizontalAlignment="Left" Margin="170,213,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Column="1"/>
-        <RadioButton x:Name="BFS_RB" Content="BFS" GroupName="Algo" HorizontalAlignment="Left" Margin="271,213,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="File_Name" x:FieldModifier="public" Content="File Name" HorizontalAlignment="Left" Height="41" Margin="293,148,0,0" VerticalAlignment="Top" Width="167" FontWeight="Normal" FontStyle="Italic" Grid.Column="1"/>
+        <RadioButton x:Name="DFS_RB" Content="DFS" GroupName="Algo" HorizontalAlignment="Left" Margin="170,213,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Column="1" BorderBrush="#FFB02121" Background="#FFF9B93B"/>
+        <RadioButton x:Name="BFS_RB" Content="BFS" GroupName="Algo" HorizontalAlignment="Left" Margin="271,213,0,0" VerticalAlignment="Top" Grid.Column="1" Background="#FFF9A502"/>
+        <Label x:Name="File_Name" x:FieldModifier="public" Content="File Name" HorizontalAlignment="Left" Height="41" Margin="293,148,0,0" VerticalAlignment="Top" Width="167" FontWeight="Normal" FontStyle="Italic" Grid.Column="1" FontSize="15"/>
         <ComboBox x:Name="Node_Src" HorizontalAlignment="Left" Height="26" Margin="170,265,0,0" VerticalAlignment="Top" Width="164" Grid.Column="1"/>
         <ComboBox x:Name="Node_Dest" HorizontalAlignment="Left" Height="26" Margin="170,321,0,0" VerticalAlignment="Top" Width="164" Grid.Column="1"/>
-        <ScrollViewer x:Name="ScrollViewerA" Grid.Column="1" HorizontalAlignment="Left" Height="312" Margin="0,461,0,0" VerticalAlignment="Top" Width="508" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="ScrollViewerA" HorizontalAlignment="Left" Height="312" Margin="60,461,0,0" VerticalAlignment="Top" Width="508" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2" BorderBrush="#FFF9A502">
             <TextBlock x:Name="Result" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14" Margin="5" LineStackingStrategy="BlockLineHeight" LineHeight="20">
             </TextBlock>
         </ScrollViewer>
-        <WindowsFormsHost Name="WFH" Margin="565,44,67,75" Grid.Column="1" Grid.ColumnSpan="2">
+        <WindowsFormsHost Name="WFH" Margin="565,44,67,75" Grid.Column="1" Grid.ColumnSpan="2" ChildChanged="WFH_ChildChanged" Background="#FFFDEBEB">
             <gv:GViewer x:Name="gViewer"></gv:GViewer>
         </WindowsFormsHost>
+        <Image Source="\img\logo.png" HorizontalAlignment="Left" Height="100" Margin="60,17,0,0" VerticalAlignment="Top" Width="424" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

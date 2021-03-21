@@ -320,6 +320,11 @@ namespace BaconPancakes
                 File_Name.Content = "File not read!";
             }
         }
+
+        private void WFH_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        {
+
+        }
     }
 }
 

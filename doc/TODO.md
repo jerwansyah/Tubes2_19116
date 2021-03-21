@@ -6,12 +6,13 @@
 - [x] Searching
     - [x] BFS (Axel)
     - [x] DFS (Acin)
-- [ ] GUI, UI/UX (Jejen)
+- [x] GUI, UI/UX (Jejen)
     - [x] Buat logo (Acin)
     - [x] Buat ico (Acin)
-    - [ ] Masukin logo
+    - [x] Masukin logo
 - [x] API buat convert graf ke msagl (Jejen)
-- [ ] [Laporan]((https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#))
+- [ ] README.md
+- [ ] [Laporan](https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#)
 - [ ] Video
 
 
