@@ -146,12 +146,12 @@ namespace BaconPancakes
                     path.Remove(currNode.GetNode1());
 
                     // Kalo currNode ga tetanggaan sama stack.Top(), currNode = last element of path
-                    if (!currNode.IsAdjacent(stack.Peek())) {
-                        currNode = graph_in.GetNodeOf(path[path.Count-1]);
-                    }
-                    else {
-                        currNode = graph_in.GetNodeOf(stack.Peek());
-                    }
+                    // if (!currNode.IsAdjacent(stack.Peek())) {
+                    currNode = graph_in.GetNodeOf(path[path.Count-1]);
+                    // }
+                    // else {
+                    //     currNode = graph_in.GetNodeOf(stack.Peek());
+                    // }
                 }
                 if (path[path.Count-1] == end) {
                     lastAdded = true;
