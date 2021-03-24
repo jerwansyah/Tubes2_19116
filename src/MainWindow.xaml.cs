@@ -305,6 +305,9 @@ namespace BaconPancakes
 
             G = new Graph("graph");
             MakeGraph();
+
+            Src = null;
+            Dest = null;
         }
 
         /**
