@@ -214,15 +214,17 @@ namespace BaconPancakes
             RecsOfFriends = Instance.recFriends(UG, Src);
 
             Result.Text += nl + "Friend recommendation(s) for account " + Src + ":" + nl;
-            foreach (friendRec friend in RecsOfFriends)
-            {
-                Result.Text += tab + "Account: " + friend.GetName();
-                Result.Text += ", " + friend.GetTotalMutual() + " mutual friend(s): ";
-                foreach (string mutualName in friend.GetMutualFriends)
+            if (RecsOfFriends.Count != 0) {
+                foreach (friendRec friend in RecsOfFriends)
                 {
-                    Result.Text += mutualName+ " ";
+                    Result.Text += tab + "Account: " + friend.GetName();
+                    Result.Text += ", " + friend.GetTotalMutual() + " mutual friend(s): ";
+                    foreach (string mutualName in friend.GetMutualFriends)
+                    {
+                        Result.Text += mutualName+ " ";
+                    }
+                    Result.Text += nl;
                 }
-                Result.Text += nl;
                 return;
             }
             Result.Text += tab + "No friend recommendation." + nl;
