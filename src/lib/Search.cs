@@ -130,7 +130,14 @@ namespace BaconPancakes
                     //          currNode = F
                     if (currNode.GetNode1() == path[path.Count-1] && currNode.IsAdjacent(stack.Peek())) {
                             currNode = graph_in.GetNodeOf(stack.Peek());
+                            if (currNode.GetNode1() == end) break;
                             stack.Pop();
+                            List<string> adjacentNodes = currNode.GetAdjacentNodes();
+                            foreach (string nodeName in adjacentNodes.ToList().AsEnumerable().Reverse()) {
+                                if (!visited.Contains(nodeName) && !path.Contains(nodeName)) {
+                                stack.Push(nodeName);
+                            }
+                        }
                     }
                 }
                 
@@ -198,19 +205,23 @@ namespace BaconPancakes
         // static void Main(string[] args) {
         //     // ini buat testing aja
         //     UndirectedGraph g = new UndirectedGraph();
-        //     g.AddEdge("A", "B");
-        //     g.AddEdge("A", "C");
-        //     g.AddEdge("A", "D");
-        //     g.AddEdge("B", "C");
-        //     g.AddEdge("B", "E");
-        //     g.AddEdge("B", "F");
-        //     g.AddEdge("C", "F");
-        //     g.AddEdge("C", "G");
-        //     g.AddEdge("D", "G");
-        //     g.AddEdge("D", "F");
-        //     g.AddEdge("E", "H");
-        //     g.AddEdge("E", "F");
-        //     g.AddEdge("F", "H");
+        //     g.AddEdge("BMO", "LSP");
+        //     g.AddEdge("Bubblegum", "Peppermint");
+        //     g.AddEdge("Bubblegum", "Marceline");
+        //     g.AddEdge("Finn", "Bubblegum");
+        //     g.AddEdge("Finn", "Flame");
+        //     g.AddEdge("Finn", "Jake");
+        //     g.AddEdge("Finn", "Marceline");
+        //     g.AddEdge("Finn", "Tree_Trunks");
+        //     g.AddEdge("Jake", "BMO");
+        //     g.AddEdge("Jake", "Bubblegum");
+        //     g.AddEdge("Jake", "Lady_Unicorn");
+        //     g.AddEdge("Marceline", "Simon");
+        //     g.AddEdge("Peppermint", "Lemongrab");
+        //     g.AddEdge("Simon", "Ghost");
+        //     g.AddEdge("Simon", "Hunter");
+        //     g.AddEdge("Simon", "LSP");
+        //     g.AddEdge("Simon", "Slime");
 
         //     var instance = new Search();
 
@@ -225,15 +236,15 @@ namespace BaconPancakes
             //     abc.print();
             // }
             // g.AddEdge("I", "J");
-            // try {
-            //     List<string> tes = instance.DFS(g, "A", "J");
-            //     foreach (string abc in tes) {
-            //         Console.WriteLine(abc);
-            //     }
-            // }
-            // catch {
-            //     Console.WriteLine("nuh");
-            // }
+        //     try {
+        //         List<string> tes = instance.DFS(g, "Peppermint", "Flame");
+        //         foreach (string abc in tes) {
+        //             Console.WriteLine(abc);
+        //         }
+        //     }
+        //     catch {
+        //         Console.WriteLine("nuh");
+        //     }
         // }
     }
 }
