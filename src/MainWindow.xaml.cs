@@ -27,7 +27,10 @@ namespace BaconPancakes
         /*** Atribut ***/
         private UndirectedGraph UG;
         private String Src;
+        private String Prev_Src;
         private String Dest;
+        private String Prev_Dest;
+        private Graph G;
 
         /*** Metode ***/
         public System.Windows.Forms.ComboBox.ObjectCollection Items { get; }
@@ -60,59 +63,11 @@ namespace BaconPancakes
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             // Jika tidak ada file yang di-submit maka metode akan berhenti
-            if (UG == null || Node_Src.SelectedItem == null || Node_Dest.SelectedItem == null)
+            if (UG == null || Node_Src.SelectedItem == null)
             {
                 Result.Text = "Invalid file or input";
                 return;
             }
-
-            // Mengambil nilai-nilai simpul sumber dan tujuan
-            Src = (string)Node_Src.SelectedValue;
-            Dest = (string)Node_Dest.SelectedValue;
-
-            // Membuat graf
-            Graph G = new Graph("graph");
-
-            // Menambahkan sisi ke graf
-            foreach (Node node in UG.GetNodes())
-            {
-                if (node.GetAdjacentNodes().Count != 0)
-                {
-                    foreach (string adjacentNode in node.GetAdjacentNodes())
-                    {
-                        var Edge = G.AddEdge(node.GetNode1(), adjacentNode);
-                        Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                        Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                    }
-                }
-                else
-                {
-                    G.AddNode(node.GetNode1());
-                }
-            }
-
-            // Membuang sisi yang ganda antarsimpul
-            foreach (Edge E1 in G.Edges)
-            {
-                var src = E1.Source;
-                var dest = E1.Target;
-
-                foreach (Edge E2 in G.Edges)
-                {
-                    if (E2.Source == dest && E2.Target == src)
-                    {
-                        G.RemoveEdge(E2);
-                    }
-                }
-            }
-            this.gViewer.Graph = G;
-
-            // Mewarnai simpul awal dan akhir
-            MSAGLNode Src_Copy = G.FindNode(Src);
-            MSAGLNode Dest_Copy = G.FindNode(Dest);
-
-            Src_Copy.Attr.FillColor = Color.Goldenrod;
-            Dest_Copy.Attr.FillColor = Color.Goldenrod;
 
             // Mencetak hasil
             var Instance = new Search();
@@ -128,38 +83,44 @@ namespace BaconPancakes
                 Result.Text += Src + "." + nl;
             }
 
-            if (DFS_RB.IsChecked == true)
+            if (Src != Dest)
             {
-                try
+                if (DFS_RB.IsChecked == true && Dest != null)
                 {
-                    Res = Instance.DFS(UG, Src, Dest);
-                    PrintingPath(Res);
-                    ColoringGraph(Res, G);
-                }
-                catch
-                {
-                    Console.WriteLine("DFS broke");
-                    Result.Text += tab + "No available connection." + nl;
-                }
+                    try
+                    {
+                        Res = Instance.DFS(UG, Src, Dest);
+                        PrintingPath(Res);
+                        ColoringGraph(Res, G);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("DFS broke");
+                        Result.Text += tab + "No available connection." + nl;
+                    }
 
-            }
-            else
-            {
-                try
-                {
-                    Res = Instance.BFS(UG, Src, Dest);
-                    PrintingPath(Res);
-                    ColoringGraph(Res, G);
                 }
-                catch
+                else
                 {
-                    Console.WriteLine("BFS broke");
-                    Result.Text += tab + "No available connection." + nl;
+                    try
+                    {
+                        Res = Instance.BFS(UG, Src, Dest);
+                        PrintingPath(Res);
+                        ColoringGraph(Res, G);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("BFS broke");
+                        Result.Text += tab + "No available connection." + nl;
+                    }
                 }
             }
 
             // Mencetak hasil rekomendasi teman
-            FriendsRecommendation();
+            if (Dest != null)
+            {
+                FriendsRecommendation();
+            }
         }
 
         /**
@@ -221,7 +182,7 @@ namespace BaconPancakes
                     Result.Text += ", " + friend.GetTotalMutual() + " mutual friend(s): ";
                     foreach (string mutualName in friend.GetMutualFriends)
                     {
-                        Result.Text += mutualName+ " ";
+                        Result.Text += nl + tab + tab + mutualName;
                     }
                     Result.Text += nl;
                 }
@@ -235,6 +196,8 @@ namespace BaconPancakes
          */
         private void ColoringGraph(List<String> SearchResult, Graph G)
         {
+            ClearColor();
+            
             // Mewarnai sisi
             for (int i = 0; i < SearchResult.Count - 1; i++)
             {
@@ -260,6 +223,29 @@ namespace BaconPancakes
                     }
                 }
             }
+
+            ColorNode(Src, "Goldenrod");
+            ColorNode(Dest, "Goldenrod");
+            this.gViewer.Graph = G;
+        }
+
+        /**
+         * Metode untuk membersihkan warna pada graph
+         */
+        private void ClearColor()
+        {
+            // Membersihkan warna
+            foreach (Edge E1 in G.Edges)
+            {
+                E1.Attr.Color = Color.Black;
+            }
+
+            foreach (MSAGLNode N1 in G.Nodes)
+            {
+                N1.Attr.Color = Color.Black;
+                N1.Attr.FillColor = Color.White;
+            }
+            this.gViewer.Graph = G;
         }
 
         /**
@@ -302,30 +288,141 @@ namespace BaconPancakes
                 catch (FileFormatException err)
                 {
                     Console.WriteLine(err.Message);
+                    File_Name.Content = "File not read!";
+                    return;
                 }
             }
 
             // Mengisi item ComboBox
+            Node_Src.Items.Clear();
+            Node_Dest.Items.Clear();
+
+            foreach (Node n in UG.GetNodes())
+            {
+                Node_Src.Items.Add(n.GetNode1());
+                Node_Dest.Items.Add(n.GetNode1());
+            }
+
+            G = new Graph("graph");
+            MakeGraph();
+        }
+
+        /**
+         * Metode untuk mewarnai sebuah simpul
+         */
+        private void ColorNode(String node, string color)
+        {
+            MSAGLNode Copy = G.FindNode(node);
+            if (color == "White")
+            {
+                Copy.Attr.FillColor = Color.White;
+            }
+            else if (color == "Goldenrod")
+            {
+                Copy.Attr.FillColor = Color.Goldenrod;
+            }
+            this.gViewer.Graph = G;
+        }
+
+        /**
+         * Metode (Event Handler) untuk memilih simpul asal
+         */
+        private void Node_Src_Chosen(object sender, EventArgs e)
+        {
             if (UG != null)
             {
-                Node_Src.Items.Clear();
-                Node_Dest.Items.Clear();
-
-                foreach (Node n in UG.GetNodes())
+                ClearColor();
+                if (Dest != null)
                 {
-                    Node_Src.Items.Add(n.GetNode1());
-                    Node_Dest.Items.Add(n.GetNode1());
+                    ColorNode(Dest, "Goldenrod");
+                }
+
+                if (Src != null) // kalo yang pertama banget
+                {
+                    Prev_Src = Src;
+                }
+
+                Src = (string)Node_Src.SelectedValue;
+                if (Prev_Src != null && Prev_Src != Src && Prev_Src != Dest)
+                {
+                    ColorNode(Prev_Src, "White");
+                }
+
+                if (Src != null) // kalo gajadi
+                {
+                    ColorNode(Src, "Goldenrod");
                 }
             }
-            else
+        }
+        
+        /**
+         * Metode (Event Handler) untuk memilih simpul akhir
+         */
+        private void Node_Dest_Chosen(object sender, EventArgs e)
+        {
+            if (UG != null)
             {
-                File_Name.Content = "File not read!";
+                ClearColor();
+                if (Src != null)
+                {
+                    ColorNode(Src, "Goldenrod");
+                }
+                if (Dest != null) // kalo yang pertama banget
+                {
+                    Prev_Dest = Dest;
+                }
+
+                Dest = (string)Node_Dest.SelectedValue;
+                if (Prev_Dest != null && Prev_Dest != Dest && Prev_Dest != Src)
+                {
+                    ColorNode(Prev_Dest, "White");
+                }
+
+                if (Src != null) // kalo gajadi
+                {
+                    ColorNode(Dest, "Goldenrod");
+                }
             }
         }
 
-        private void WFH_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        /**
+         * Metode untuk membuat graph MSAGL
+         */
+        public void MakeGraph()
         {
+            // Menambahkan sisi ke graf
+            foreach (Node node in UG.GetNodes())
+            {
+                if (node.GetAdjacentNodes().Count != 0)
+                {
+                    foreach (string adjacentNode in node.GetAdjacentNodes())
+                    {
+                        var Edge = G.AddEdge(node.GetNode1(), adjacentNode);
+                        Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                    }
+                }
+                else
+                {
+                    G.AddNode(node.GetNode1());
+                }
+            }
 
+            // Membuang sisi yang ganda antarsimpul
+            foreach (Edge E1 in G.Edges)
+            {
+                var src = E1.Source;
+                var dest = E1.Target;
+
+                foreach (Edge E2 in G.Edges)
+                {
+                    if (E2.Source == dest && E2.Target == src)
+                    {
+                        G.RemoveEdge(E2);
+                    }
+                }
+            }
+            this.gViewer.Graph = G;
         }
     }
 }

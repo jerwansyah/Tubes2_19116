@@ -4,10 +4,14 @@
 1. Lorem ipsum
 
 ## Requirement Program
-1. Lorem ipsum
+Jika ingin mengubah program:
+- Visual Studio 2019 (ke atas)
 
 ## Cara Menggunakan Program
-1. Lorem ipsum
+1. Pilih file.
+2. Pilih algoritma
+3. Pilih akun sumber dan akun tujuan atau hanya akun sumber saja.
+4. Klik tombol submit. Et voila!
 
 ## Author
 ### Kelompok 16 | Bacon Pancakes
