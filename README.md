@@ -3,15 +3,20 @@
 ## Algoritma
 1. Lorem ipsum
 
-## Requirement Program
-Jika ingin mengubah program:
-- Visual Studio 2019 (ke atas)
+## Requirements
+Jika ingin mengubah program, dibutuhkan Visual Studio 2019 (ke atas).
+
+Untuk pengalaman yang maksimal, gunakan aplikasi pada layar monitor beresolusi 1920 x 1080.
 
 ## Cara Menggunakan Program
-1. Pilih file.
-2. Pilih algoritma
-3. Pilih akun sumber dan akun tujuan atau hanya akun sumber saja.
-4. Klik tombol submit. Et voila!
+1. Buka aplikasi `BaconPancakes.exe` di dalam folder `bin`.
+2. Pilih file yang ingin digunakan dengan menekan tombol `Browse` dalam aplikasi
+3. Pilih algoritma _searching_.
+4. Pilih akun sumber dan akun tujuan atau hanya akun sumber saja jika hanya ingin mencari rekomendasi teman.
+5. Klik tombol `Submit`. Et voila!
+
+## Tangkap Layar Aplikasi
+![Tangkap Layar](./doc/app.png)
 
 ## Author
 ### Kelompok 16 | Bacon Pancakes

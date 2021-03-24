@@ -14,6 +14,7 @@
 - [ ] README.md
 - [ ] [Laporan](https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#)
 - [ ] Video
+- [x] Bin
 
 
 # Program
