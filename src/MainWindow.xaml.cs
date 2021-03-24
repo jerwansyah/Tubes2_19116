@@ -224,8 +224,8 @@ namespace BaconPancakes
                 }
             }
 
-            ColorNode(Src, "Goldenrod");
-            ColorNode(Dest, "Goldenrod");
+            ColorNode(Src, Color.Goldenrod);
+            ColorNode(Dest, Color.Goldenrod);
             this.gViewer.Graph = G;
         }
 
@@ -313,17 +313,10 @@ namespace BaconPancakes
         /**
          * Metode untuk mewarnai sebuah simpul
          */
-        private void ColorNode(String node, string color)
+        private void ColorNode(String node, Color color)
         {
             MSAGLNode Copy = G.FindNode(node);
-            if (color == "White")
-            {
-                Copy.Attr.FillColor = Color.White;
-            }
-            else if (color == "Goldenrod")
-            {
-                Copy.Attr.FillColor = Color.Goldenrod;
-            }
+            Copy.Attr.FillColor = color;
             this.gViewer.Graph = G;
         }
 
@@ -337,7 +330,7 @@ namespace BaconPancakes
                 ClearColor();
                 if (Dest != null)
                 {
-                    ColorNode(Dest, "Goldenrod");
+                    ColorNode(Dest, Color.Goldenrod);
                 }
 
                 if (Src != null) // kalo yang pertama banget
@@ -348,12 +341,12 @@ namespace BaconPancakes
                 Src = (string)Node_Src.SelectedValue;
                 if (Prev_Src != null && Prev_Src != Src && Prev_Src != Dest)
                 {
-                    ColorNode(Prev_Src, "White");
+                    ColorNode(Prev_Src, Color.White);
                 }
 
                 if (Src != null) // kalo gajadi
                 {
-                    ColorNode(Src, "Goldenrod");
+                    ColorNode(Src, Color.Goldenrod);
                 }
             }
         }
@@ -368,7 +361,7 @@ namespace BaconPancakes
                 ClearColor();
                 if (Src != null)
                 {
-                    ColorNode(Src, "Goldenrod");
+                    ColorNode(Src, Color.Goldenrod);
                 }
                 if (Dest != null) // kalo yang pertama banget
                 {
@@ -378,12 +371,12 @@ namespace BaconPancakes
                 Dest = (string)Node_Dest.SelectedValue;
                 if (Prev_Dest != null && Prev_Dest != Dest && Prev_Dest != Src)
                 {
-                    ColorNode(Prev_Dest, "White");
+                    ColorNode(Prev_Dest, Color.White);
                 }
 
                 if (Src != null) // kalo gajadi
                 {
-                    ColorNode(Dest, "Goldenrod");
+                    ColorNode(Dest, Color.Goldenrod);
                 }
             }
         }
