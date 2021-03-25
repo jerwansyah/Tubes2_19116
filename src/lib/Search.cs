@@ -41,15 +41,9 @@ namespace BaconPancakes
             int i = 0;
             while (penyimpan_path.Count > 0) {
                 i += 1;                
-                // Console.WriteLine("Iteration " + i + " started");
                 currentPath = new List<Node>(penyimpan_path.Dequeue());
-
-                // foreach (Node step in currentPath) {
-                //     Console.WriteLine(step.GetNode1());
-                // }
                 
                 currentNode = currentPath.Last();
-                // Console.WriteLine("Current node : " + currentNode.GetNode1());
 
                 if (currentNode.GetNode1() == end) {
                     return NodeListToStringList(currentPath);
@@ -66,32 +60,11 @@ namespace BaconPancakes
                         new_path.AddRange(currentPath);
                         new_path.Add(adjacentNode);
 
-                        // Console.WriteLine("\nWhat does the new path contains eh?");
-                        // foreach (Node step in new_path) {
-                        //     Console.WriteLine(step.GetNode1());
-                        // }
                         penyimpan_path.Enqueue(new_path);
                     }
                 }
-                // Console.WriteLine("Iteration " + i + " ended");
-                // Console.WriteLine("penyimpan_path contains " + penyimpan_path.Count + "\n");
             }
             return null;
-        }
-
-        public void printStack(Stack<string> haha) {
-            foreach(string hehe in haha) {
-                Console.Write(hehe + " ");
-            }
-            Console.WriteLine();
-        }
-
-        public void printPath(List<string> bacon) {
-            Console.WriteLine("printpath ini");
-            foreach (string pancake in bacon) {
-                Console.Write(pancake + " ");
-            }
-            Console.WriteLine();
         }
 
         // Use exception handling for no connected friends
@@ -151,14 +124,7 @@ namespace BaconPancakes
                     backtrack = true;
                     visited.Add(currNode.GetNode1());
                     path.Remove(currNode.GetNode1());
-
-                    // Kalo currNode ga tetanggaan sama stack.Top(), currNode = last element of path
-                    // if (!currNode.IsAdjacent(stack.Peek())) {
                     currNode = graph_in.GetNodeOf(path[path.Count-1]);
-                    // }
-                    // else {
-                    //     currNode = graph_in.GetNodeOf(stack.Peek());
-                    // }
                 }
                 if (path[path.Count-1] == end) {
                     lastAdded = true;
@@ -202,49 +168,5 @@ namespace BaconPancakes
             return recommended.OrderByDescending(o => o.GetTotalMutual()).ToList();
         }
 
-        // static void Main(string[] args) {
-        //     // ini buat testing aja
-        //     UndirectedGraph g = new UndirectedGraph();
-        //     g.AddEdge("BMO", "LSP");
-        //     g.AddEdge("Bubblegum", "Peppermint");
-        //     g.AddEdge("Bubblegum", "Marceline");
-        //     g.AddEdge("Finn", "Bubblegum");
-        //     g.AddEdge("Finn", "Flame");
-        //     g.AddEdge("Finn", "Jake");
-        //     g.AddEdge("Finn", "Marceline");
-        //     g.AddEdge("Finn", "Tree_Trunks");
-        //     g.AddEdge("Jake", "BMO");
-        //     g.AddEdge("Jake", "Bubblegum");
-        //     g.AddEdge("Jake", "Lady_Unicorn");
-        //     g.AddEdge("Marceline", "Simon");
-        //     g.AddEdge("Peppermint", "Lemongrab");
-        //     g.AddEdge("Simon", "Ghost");
-        //     g.AddEdge("Simon", "Hunter");
-        //     g.AddEdge("Simon", "LSP");
-        //     g.AddEdge("Simon", "Slime");
-
-        //     var instance = new Search();
-
-            // Node jir = g.getNodeOf("A");
-            // List<Node> hehe = g.getAdjacentNodes(jir);
-            // foreach (Node anjir in hehe) {
-            //     Console.WriteLine(anjir.getNode1());
-            // }
-
-            // List<friendRec> tes = instance.recFriends(g, "A");
-            // foreach (friendRec abc in tes) {
-            //     abc.print();
-            // }
-            // g.AddEdge("I", "J");
-        //     try {
-        //         List<string> tes = instance.DFS(g, "Peppermint", "Flame");
-        //         foreach (string abc in tes) {
-        //             Console.WriteLine(abc);
-        //         }
-        //     }
-        //     catch {
-        //         Console.WriteLine("nuh");
-        //     }
-        // }
     }
 }

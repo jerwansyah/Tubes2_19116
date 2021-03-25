@@ -11,7 +11,7 @@ Program mengimplementasikan 2 strategi algoritma, yaitu strategi BFS dan DFS.
 atau
 [.NET 5.0](https://dotnet.microsoft.com/download)
 
-Untuk pengalaman yang maksimal, gunakan aplikasi pada layar monitor beresolusi 1920 x 1080.
+Untuk pengalaman yang maksimal, gunakan aplikasi pada layar monitor beresolusi 1920 x 1080 dan layout maksimal 125%.
 
 ## Cara Menggunakan Program
 *Jika langsung menggunakan executable*
@@ -38,8 +38,8 @@ dotnet run
 
 *Setelah GUI sudah terlihat*
 1. Pilih file yang ingin digunakan dengan menekan tombol `Browse` dalam aplikasi
-2. Pilih algoritma _searching_.
-3. Pilih akun sumber dan akun tujuan atau hanya akun sumber saja jika hanya ingin mencari rekomendasi teman.
+2. Pilih algoritma _searching_
+3. Pilih akun sumber dan akun tujuan atau hanya akun sumber saja jika hanya ingin mencari rekomendasi teman
 4. Klik tombol `Submit`. Et voila!
 
 ## Tangkap Layar Aplikasi
