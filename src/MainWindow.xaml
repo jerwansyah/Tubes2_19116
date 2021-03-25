@@ -39,8 +39,8 @@
         <Label x:Name="Algorithm" Content="Algorithm" HorizontalAlignment="Left" Height="36" Margin="64,210,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
         <Label x:Name="Node_Start" Content="Choose Account" HorizontalAlignment="Left" Height="37" Margin="64,267,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
         <Label x:Name="Node_End" Content="Explore friends with" HorizontalAlignment="Left" Height="37" Margin="64,325,0,0" VerticalAlignment="Top" Width="167" Grid.ColumnSpan="2"/>
-        <RadioButton x:Name="DFS_RB" Content="DFS" GroupName="Algo" HorizontalAlignment="Left" Margin="170,213,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Column="1" BorderBrush="#FFB02121" Background="#FFF9B93B"/>
-        <RadioButton x:Name="BFS_RB" Content="BFS" GroupName="Algo" HorizontalAlignment="Left" Margin="271,213,0,0" VerticalAlignment="Top" Grid.Column="1" Background="#FFF9A502"/>
+        <RadioButton x:Name="DFS_RB" Content="DFS" GroupName="Algo" HorizontalAlignment="Left" Margin="170,213,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Column="1" BorderBrush="#FFB02121" Background="#FFF9B93B" Checked="DFS_RB_Checked"/>
+        <RadioButton x:Name="BFS_RB" Content="BFS" GroupName="Algo" HorizontalAlignment="Left" Margin="271,213,0,0" VerticalAlignment="Top" Grid.Column="1" Background="#FFF9A502" Checked="BFS_RB_Checked"/>
         <Label x:Name="File_Name" x:FieldModifier="public" Content="File Name" HorizontalAlignment="Left" Height="41" Margin="293,148,0,0" VerticalAlignment="Top" Width="167" FontWeight="Normal" FontStyle="Italic" Grid.Column="1" FontSize="15"/>
         <ComboBox x:Name="Node_Src" HorizontalAlignment="Left" Height="26" Margin="170,265,0,0" VerticalAlignment="Top" Width="164" Grid.Column="1" DropDownClosed="Node_Src_Chosen"/>
         <ComboBox x:Name="Node_Dest" HorizontalAlignment="Left" Height="26" Margin="170,321,0,0" VerticalAlignment="Top" Width="164" Grid.Column="1" DropDownClosed="Node_Dest_Chosen"/>

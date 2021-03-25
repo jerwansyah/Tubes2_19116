@@ -73,25 +73,23 @@ namespace BaconPancakes
             var Instance = new Search();
             List<String> Res;
 
-            Result.Text = "Selected account(s) ";
-            if (Src != Dest)
+            Result.Text = "Selected account(s): ";
+            Result.Text += Src;
+            if (Src != Dest && Dest != null)
             {
-                Result.Text += Src + " and " + Dest + "." + nl;
+                Result.Text += " and " + Dest;
             }
-            else
-            {
-                Result.Text += Src + "." + nl;
-            }
+            Result.Text += "." + nl;
 
-            if (Src != Dest)
+            if (Src != Dest && Dest != null)
             {
-                if (DFS_RB.IsChecked == true && Dest != null)
+                if (DFS_RB.IsChecked == true)
                 {
                     try
                     {
                         Res = Instance.DFS(UG, Src, Dest);
                         PrintingPath(Res);
-                        ColoringGraph(Res, G);
+                        ColoringGraph(Res, G, Color.Peru, Color.SaddleBrown, Color.Moccasin, Color.Goldenrod);
                     }
                     catch
                     {
@@ -106,7 +104,7 @@ namespace BaconPancakes
                     {
                         Res = Instance.BFS(UG, Src, Dest);
                         PrintingPath(Res);
-                        ColoringGraph(Res, G);
+                        ColoringGraph(Res, G, Color.DarkMagenta, Color.Indigo, Color.Plum, Color.MediumPurple);
                     }
                     catch
                     {
@@ -117,7 +115,7 @@ namespace BaconPancakes
             }
 
             // Mencetak hasil rekomendasi teman
-            if (Dest != null)
+            if (Src != null)
             {
                 FriendsRecommendation();
             }
@@ -194,7 +192,7 @@ namespace BaconPancakes
         /**
          * Metode untuk mewarnai graf
          */
-        private void ColoringGraph(List<String> SearchResult, Graph G)
+        private void ColoringGraph(List<String> SearchResult, Graph G, Color c1, Color c2, Color c3, Color c4)
         {
             ClearColor();
             
@@ -206,7 +204,7 @@ namespace BaconPancakes
                     if (E1.Source == SearchResult[i] && E1.Target == SearchResult[i + 1] ||
                         E1.Target == SearchResult[i] && E1.Source == SearchResult[i + 1])
                     {
-                        E1.Attr.Color = Color.Peru;
+                        E1.Attr.Color = c1;
                     }
                 }
             }
@@ -218,14 +216,14 @@ namespace BaconPancakes
                 {
                     if (N1.Id == SearchResult[i])
                     {
-                        N1.Attr.Color = Color.SaddleBrown;
-                        N1.Attr.FillColor = Color.Moccasin;
+                        N1.Attr.Color = c2;
+                        N1.Attr.FillColor = c3;
                     }
                 }
             }
 
-            ColorNode(Src, Color.Goldenrod);
-            ColorNode(Dest, Color.Goldenrod);
+            ColorNode(Src, c4);
+            ColorNode(Dest, c4);
             this.gViewer.Graph = G;
         }
 
@@ -253,6 +251,7 @@ namespace BaconPancakes
          */
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
+            UG = new UndirectedGraph();
             // Mengosongkan TextBox Result
             Result.Text = "";
 
@@ -289,22 +288,24 @@ namespace BaconPancakes
                 {
                     Console.WriteLine(err.Message);
                     File_Name.Content = "File not read!";
-                    return;
                 }
             }
 
-            // Mengisi item ComboBox
-            Node_Src.Items.Clear();
-            Node_Dest.Items.Clear();
-
-            foreach (Node n in UG.GetNodes())
+            if (UG != null)
             {
-                Node_Src.Items.Add(n.GetNode1());
-                Node_Dest.Items.Add(n.GetNode1());
-            }
+                // Mengisi item ComboBox
+                Node_Src.Items.Clear();
+                Node_Dest.Items.Clear();
 
-            G = new Graph("graph");
-            MakeGraph();
+                foreach (Node n in UG.GetNodes())
+                {
+                    Node_Src.Items.Add(n.GetNode1());
+                    Node_Dest.Items.Add(n.GetNode1());
+                }
+
+                G = new Graph("graph");
+                MakeGraph();
+            }
 
             Src = null;
             Dest = null;
@@ -330,7 +331,7 @@ namespace BaconPancakes
                 ClearColor();
                 if (Dest != null)
                 {
-                    ColorNode(Dest, Color.Goldenrod);
+                    ColorNodeHelper(Dest);
                 }
 
                 if (Src != null) // kalo yang pertama banget
@@ -346,7 +347,7 @@ namespace BaconPancakes
 
                 if (Src != null) // kalo gajadi
                 {
-                    ColorNode(Src, Color.Goldenrod);
+                    ColorNodeHelper(Src);
                 }
             }
         }
@@ -361,7 +362,7 @@ namespace BaconPancakes
                 ClearColor();
                 if (Src != null)
                 {
-                    ColorNode(Src, Color.Goldenrod);
+                    ColorNodeHelper(Src);
                 }
                 if (Dest != null) // kalo yang pertama banget
                 {
@@ -374,10 +375,25 @@ namespace BaconPancakes
                     ColorNode(Prev_Dest, Color.White);
                 }
 
-                if (Src != null) // kalo gajadi
+                if (Dest != null) // kalo gajadi
                 {
-                    ColorNode(Dest, Color.Goldenrod);
+                    ColorNodeHelper(Dest);
                 }
+            }
+        }
+
+        /**
+         * Metode helper untuk mewarnai simpul Src dan Dest
+         */
+        private void ColorNodeHelper(String N)
+        {
+            if (DFS_RB.IsChecked == true)
+            {
+                ColorNode(N, Color.Goldenrod);
+            }
+            else
+            {
+                ColorNode(N, Color.MediumPurple);
             }
         }
 
@@ -420,6 +436,51 @@ namespace BaconPancakes
             }
             this.gViewer.Graph = G;
         }
+
+        /**
+         * Metode (Event Handler) untuk mewarnai simpul
+         */
+        private void DFS_RB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (UG != null)
+            {
+                ClearColor();
+            }
+            if (Src != null)
+            {
+                ColorNode(Src, Color.Goldenrod);
+            }
+            if (Dest != null)
+            {
+                ColorNode(Dest, Color.Goldenrod);
+            }
+            if (Result != null)
+            {
+                Result.Text = "";
+            }
+        }
+
+        /**
+         * Metode (Event Handler) untuk mewarnai simpul
+         */
+        private void BFS_RB_Checked(object sender, RoutedEventArgs e)
+        {
+            if (UG != null)
+            {
+                ClearColor();
+            }
+            if (Src != null)
+            {
+                ColorNode(Src, Color.MediumPurple);
+            }
+            if (Dest != null)
+            {
+                ColorNode(Dest, Color.MediumPurple);
+            }
+            if (Result != null)
+            {
+                Result.Text = "";
+            }
+        }
     }
 }
-
