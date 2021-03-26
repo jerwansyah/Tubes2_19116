@@ -11,8 +11,8 @@
     - [x] Buat ico (Acin)
     - [x] Masukin logo
 - [x] API buat convert graf ke msagl (Jejen)
-- [ ] README.md
-- [ ] [Laporan](https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#)
+- [x] README.md
+- [x] [Laporan](https://docs.google.com/document/d/14Ojfot1W7SoiDuKSaVLB_IAXodXEtLsRiOcxHuGGwLM/edit#)
 - [ ] Video
 - [x] Bin
 
