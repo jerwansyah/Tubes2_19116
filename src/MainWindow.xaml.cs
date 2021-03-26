@@ -100,13 +100,13 @@ namespace BaconPancakes
                 }
                 else
                 {
-                    try
+                    Res = Instance.BFS(UG, Src, Dest);
+                    if (Res != null)
                     {
-                        Res = Instance.BFS(UG, Src, Dest);
                         PrintingPath(Res);
                         ColoringGraph(Res, G, Color.DarkMagenta, Color.Indigo, Color.Plum, Color.MediumPurple);
                     }
-                    catch
+                    else
                     {
                         Console.WriteLine("BFS broke");
                         Result.Text += tab + "No available connection." + nl;
@@ -127,25 +127,29 @@ namespace BaconPancakes
         private void PrintingPath(List<String> Res)
         {
             Result.Text += tab;
-            if (Res.Count - 2 == 0)
+            int n = Res.Count - 2;
+            int puluhan = 0;
+            while (n > 10)
             {
-                Result.Text += "0";
+                puluhan = n / 10;
+                Result.Text += n / 10;
+                n %= 10;
             }
-            else if (Res.Count - 2 == 1)
+            if (n == 1 && puluhan != 1)
             {
                 Result.Text += "1st";
             }
-            else if (Res.Count - 2 == 2)
+            else if (n == 2 && puluhan != 1)
             {
                 Result.Text += "2nd";
             }
-            else if (Res.Count - 2 == 3)
+            else if (n == 3 && puluhan != 1)
             {
                 Result.Text += "3rd";
             }
             else
             {
-                Result.Text += (Res.Count - 2) + "th";
+                Result.Text += n + "th";
             }
             Result.Text += " degree connection." + nl;
             Result.Text += tab + "Connection(s): ";

@@ -167,6 +167,5 @@ namespace BaconPancakes
             // Ini urutin berdasarkan mutual friends yeak
             return recommended.OrderByDescending(o => o.GetTotalMutual()).ToList();
         }
-
     }
 }
