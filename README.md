@@ -15,7 +15,7 @@ Untuk pengalaman yang maksimal, gunakan aplikasi pada layar monitor beresolusi 1
 
 ## Cara Menggunakan Program
 *Jika langsung menggunakan executable*
-1. Buka aplikasi `BaconPancakes.exe` di dalam folder `bin`
+1. Buka aplikasi `BaconPancakes.exe` di dalam folder `bin\Bacon/ Pancakes`
 
 *Jika tidak langsung menggunakan executable*
 1. *Clone repository* ini 
